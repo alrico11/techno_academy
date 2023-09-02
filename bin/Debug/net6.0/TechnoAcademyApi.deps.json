@@ -12,6 +12,7 @@
           "Microsoft.EntityFrameworkCore": "7.0.10",
           "Microsoft.EntityFrameworkCore.Design": "7.0.10",
           "Microsoft.EntityFrameworkCore.Tools": "7.0.10",
+          "Microsoft.Extensions.DependencyInjection": "7.0.0",
           "MySql.Data": "8.1.0",
           "MySql.EntityFrameworkCore": "7.0.5",
           "Pomelo.EntityFrameworkCore.MySql": "7.0.0",

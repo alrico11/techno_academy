@@ -5,7 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TechnoAcademyApi.Data;
+using TechnoAcademyApi.Models;
 using TechnoAcademyApi.Services;
+using TechnoAcademyApi.Services.Impl;
 
 namespace TechnoAcademyApi
 {
@@ -27,7 +29,11 @@ namespace TechnoAcademyApi
 
             // Registrasi service dan interface
             services.AddScoped<IFormRegisterService, FormRegisterService>();
-
+            services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IProgramCategoryService, ProgramCategoryService>();
+            services.AddScoped<IProgramEntityService, ProgramEntityService>();
+            services.AddScoped<IAppliedProgramService, AppliedProgramService>();
+            services.AddScoped<IStatusLogService, StatusLogService>();
             services.AddControllers();
             services.AddSwaggerGen();
         }
