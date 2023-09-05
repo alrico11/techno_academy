@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TechnoAcademyApi.Models
+namespace TechnoAcademyApi.Models.Entity
 {
     public class Comment : BaseEntity
     {
         [Key]
-       
-        public string UUID { get; set; } =  Guid.NewGuid().ToString();
+
+        public string UUID { get; set; } = Guid.NewGuid().ToString();
 
         [Required(ErrorMessage = "Name not null")]
         public string? Name { get; set; }

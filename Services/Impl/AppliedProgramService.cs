@@ -3,13 +3,16 @@ using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using System.Text.Json;
 using TechnoAcademyApi.Data;
 using TechnoAcademyApi.Models;
+using TechnoAcademyApi.Models.Dto.Res;
+using TechnoAcademyApi.Models.Entity;
 
 namespace TechnoAcademyApi.Services.Impl
 {
     public class AppliedProgramService : IAppliedProgramService
     {
         private readonly ApplicationDbContext _context;
-        public AppliedProgramService(ApplicationDbContext context) {
+        public AppliedProgramService(ApplicationDbContext context)
+        {
             _context = context;
         }
         public ResBase<AppliedProgram> Create(AppliedProgram appliedProgram)
@@ -84,11 +87,12 @@ namespace TechnoAcademyApi.Services.Impl
             {
                 _context.AppliedPrograms.Remove(data);
                 _context.SaveChanges();
-                return new ResBase<AppliedProgram> { Message = "Deleted applied program", Data = data};
+                return new ResBase<AppliedProgram> { Message = "Deleted applied program", Data = data };
             }
             else
             {
-                return new ResBase<AppliedProgram> { 
+                return new ResBase<AppliedProgram>
+                {
                     Success = false,
                     Message = "Not found",
                     Code = 400,

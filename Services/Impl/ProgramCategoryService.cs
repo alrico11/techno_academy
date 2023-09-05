@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.Eventing.Reader;
 using TechnoAcademyApi.Data;
-using TechnoAcademyApi.Models;
+using TechnoAcademyApi.Models.Dto.Res;
+using TechnoAcademyApi.Models.Entity;
 
 namespace TechnoAcademyApi.Services.Impl
 {

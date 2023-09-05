@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TechnoAcademyApi.Models;
+using TechnoAcademyApi.Models.Entity;
 using TechnoAcademyApi.Services;
 
 namespace TechnoAcademyApi.Controllers

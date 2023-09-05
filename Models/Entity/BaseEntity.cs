@@ -1,4 +1,4 @@
-﻿namespace TechnoAcademyApi.Models
+﻿namespace TechnoAcademyApi.Models.Entity
 {
     public class BaseEntity
     {

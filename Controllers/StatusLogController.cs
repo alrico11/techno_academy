@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
-using TechnoAcademyApi.Models;
+using TechnoAcademyApi.Models.Entity;
 using TechnoAcademyApi.Services;
 
 namespace TechnoAcademyApi.Controllers

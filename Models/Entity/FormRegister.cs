@@ -2,13 +2,13 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
-namespace TechnoAcademyApi.Models
+namespace TechnoAcademyApi.Models.Entity
 {
     public class FormRegister : BaseEntity
     {
         [Key]
         public string? UUID { get; set; } = Guid.NewGuid().ToString();
-        [Required(ErrorMessage ="Nama not null")]
+        [Required(ErrorMessage = "Nama not null")]
         public string? Name { get; set; }
 
         [Required(ErrorMessage = "Phone not null")]

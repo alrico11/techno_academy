@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TechnoAcademyApi.Models
+namespace TechnoAcademyApi.Models.Entity
 {
     public class ProgramCategory : BaseEntity
     {
@@ -14,7 +14,7 @@ namespace TechnoAcademyApi.Models
 
         [Required(ErrorMessage = "Date end not null")]
         public DateTime? DateEnd { get; set; }
-        public bool Flag {get; set; } = false;
+        public bool Flag { get; set; } = false;
 
     }
 }

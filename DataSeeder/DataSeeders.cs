@@ -1,5 +1,5 @@
 ﻿using TechnoAcademyApi.Data;
-using TechnoAcademyApi.Models;
+using TechnoAcademyApi.Models.Entity;
 
 namespace TechnoAcademyApi.DataSeeder
 {
@@ -53,7 +53,7 @@ namespace TechnoAcademyApi.DataSeeder
                     Desc = "Bootcamp Batch 8 Diselenggarakan 4 Bulan",
                 };
 
-                dbContext.ProgramEntities.Add(programEntity2);
+                dbContext.ProgramEntities.AddRange(programEntity1,programEntity2);
                 dbContext.SaveChanges();
                 //var appliedProgram1 = new AppliedProgram
                 //{

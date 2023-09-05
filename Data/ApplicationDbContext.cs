@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.DependencyInjection;
 using TechnoAcademyApi.DataSeeder;
-using TechnoAcademyApi.Models;
+using TechnoAcademyApi.Models.Entity;
 
 namespace TechnoAcademyApi.Data
 {
@@ -20,8 +20,17 @@ namespace TechnoAcademyApi.Data
         public DbSet<ProgramEntity> ProgramEntities { get; set; }
         public DbSet<AppliedProgram> AppliedPrograms{ get; set; }
         public DbSet<StatusLog> StatusLogs{ get; set; }
+        public DbSet<GCMEntity> GCMEntities{ get; set; }
+        public DbSet<MentorEntity> MentoryEntities{ get; set; }
+        public DbSet<GalleryEntity> GalleriesEntites{ get; set; }
+        public DbSet<BannerEntity> BannerEntities{ get; set; }
+        public DbSet<TestimonyEntity> TestimonyEntities{ get; set; }
+        public DbSet<EventEntity> EventEntities{ get; set; }
+        public DbSet<UserEntity> UserEntities{ get; set; }
+        public DbSet<TokenEntity> TokenEntities{ get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
             modelBuilder.Entity<FormRegister>(ConfigureFormRegister);
             modelBuilder.Entity<AppliedProgram>(ConfigureAppliedProgram);
             modelBuilder.Entity<StatusLog>(ConfigureStatusLog);

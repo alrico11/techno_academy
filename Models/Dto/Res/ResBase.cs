@@ -1,4 +1,4 @@
-﻿namespace TechnoAcademyApi.Models
+﻿namespace TechnoAcademyApi.Models.Dto.Res
 {
     public class ResBase<T>
     {

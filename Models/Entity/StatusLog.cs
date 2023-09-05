@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
-namespace TechnoAcademyApi.Models
+namespace TechnoAcademyApi.Models.Entity
 {
     public class StatusLog : BaseEntity
     {

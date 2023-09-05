@@ -1,4 +1,5 @@
-﻿using TechnoAcademyApi.Models;
+﻿using TechnoAcademyApi.Models.Dto.Res;
+using TechnoAcademyApi.Models.Entity;
 
 namespace TechnoAcademyApi.Services
 {
