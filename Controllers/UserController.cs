@@ -18,7 +18,7 @@ namespace TechnoAcademyApi.Controllers
         }
         
         [HttpPost]
-        [Authorize]
+       
         public IActionResult Create(UserEntity entity)
         {
             var res = _userService.Create(entity);

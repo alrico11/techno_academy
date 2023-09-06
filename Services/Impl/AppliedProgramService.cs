@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using System.Text.Json;
 using TechnoAcademyApi.Data;
 using TechnoAcademyApi.Models;
+using TechnoAcademyApi.Models.Dto.Req;
 using TechnoAcademyApi.Models.Dto.Res;
 using TechnoAcademyApi.Models.Entity;
 
@@ -15,20 +16,20 @@ namespace TechnoAcademyApi.Services.Impl
         {
             _context = context;
         }
-        public ResBase<AppliedProgram> Create(AppliedProgram appliedProgram)
+        public ResBase<AppliedProgram> Create(AppliedDto appliedProgramDto)
         {
             try
             {
-                if (appliedProgram.IdProgramEntity != null && appliedProgram.IdProgramEntity.Length > 0)
+                if (appliedProgramDto.IdProgramEntity != null && appliedProgramDto.IdProgramEntity.Length >= 0)
                 {
-                    foreach (var id in appliedProgram.IdProgramEntity)
+                    foreach (var id in appliedProgramDto.IdProgramEntity)
                     {
                         var newAppliedProgram = new AppliedProgram
                         {
                             Last_Status = "accepted_files",
-                            IdRegister = appliedProgram.IdRegister,
-                            IdProgramEntity = new string[] { id },
-                            FormRegister = appliedProgram.FormRegister
+                            IdRegister = appliedProgramDto.IdRegister.ToString(),
+                            IdProgramEntity = id,
+                            FormRegister = appliedProgramDto.FormRegister
                         };
                         var newStatusLog = new StatusLog
                         {
@@ -48,25 +49,6 @@ namespace TechnoAcademyApi.Services.Impl
                         Message = "Success created AppliedPrograms & StatusLogs"
                     };
                 }
-                else
-                {
-                    var newStatusLog = new StatusLog
-                    {
-                        Status = new string[] { "accepted_files" },
-                        Notes = new string[] { "dokumen_tersimpan" },
-                        Sequence = new string[] { "1" },
-                        StepStatus = 1,
-                        DateHistory = new string[] { DateTime.Now.ToString() },
-                        IdAppliedProgram = appliedProgram.UUID
-                    };
-                    _context.StatusLogs.Add(newStatusLog);
-                    _context.AppliedPrograms.Add(appliedProgram);
-                    _context.SaveChanges();
-                    return new ResBase<AppliedProgram>()
-                    {
-                        Message = "Success created AppliedPrograms & StatusLogs"
-                    };
-                }
             }
             catch (Exception ex)
             {
@@ -78,8 +60,8 @@ namespace TechnoAcademyApi.Services.Impl
                     Data = null
                 };
             }
+            return null;
         }
-
         public ResBase<AppliedProgram> Delete(string uuid)
         {
             var data = _context.AppliedPrograms.FirstOrDefault(x => x.UUID == uuid);

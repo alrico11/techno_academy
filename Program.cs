@@ -15,7 +15,7 @@ namespace TechnoAcademyApi
                 var serviceProvider = scope.ServiceProvider;
 
                 // Memanggil metode SeedData dari DataSeeder
-                DataSeeders.SeedData(serviceProvider);
+                //DataSeeders.SeedData(serviceProvider);
             }
 
             host.Run();

@@ -17,6 +17,7 @@ namespace TechnoAcademyApi.Models.Entity
         public string? CharDesc4 { get; set; }
         public string? CharValue5 { get; set; }
         public string? CharDesc5 { get; set; }
+        public string? Pict { get; set; }
 
         public int? Flag { get; set; } = 0;
     }

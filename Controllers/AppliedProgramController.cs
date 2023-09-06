@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TechnoAcademyApi.Models.Entity;
+using TechnoAcademyApi.Models.Dto.Req;
 using TechnoAcademyApi.Services;
 
 namespace TechnoAcademyApi.Controllers
@@ -40,9 +41,9 @@ namespace TechnoAcademyApi.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Create(AppliedProgram appliedProgram)
+        public IActionResult Create(AppliedDto appliedProgramDto)
         {
-            var result = _appliedProgramService.Create(appliedProgram);
+            var result = _appliedProgramService.Create(appliedProgramDto);
             if (result.Success)
             {
                 return Ok(result);

@@ -32,7 +32,7 @@ namespace TechnoAcademyApi.Data
         {
             
             modelBuilder.Entity<FormRegister>(ConfigureFormRegister);
-            modelBuilder.Entity<AppliedProgram>(ConfigureAppliedProgram);
+            //modelBuilder.Entity<AppliedProgramDto>(ConfigureAppliedProgram);
             modelBuilder.Entity<StatusLog>(ConfigureStatusLog);
         }
         public void SeedData()
@@ -59,13 +59,13 @@ namespace TechnoAcademyApi.Data
             builder.HasIndex(f => f.Email)
                 .IsUnique();
         }
-        private void ConfigureAppliedProgram(EntityTypeBuilder<AppliedProgram> builder)
-        {
-            builder.Property(x => x.IdProgramEntity)
-                .HasConversion(
-                    v => string.Join(',', v),
-                    v => v.Split(',', StringSplitOptions.RemoveEmptyEntries));
-        }
+        //private void ConfigureAppliedProgram(EntityTypeBuilder<AppliedProgram> builder)
+        //{
+        //    builder.Property(x => x.IdProgramEntity)
+        //        .HasConversion(
+        //            v => string.Join(',', v),
+        //            v => v.Split(',', StringSplitOptions.RemoveEmptyEntries));
+        //}
 
         private void ConfigureStatusLog(EntityTypeBuilder<StatusLog> builder)
         {
