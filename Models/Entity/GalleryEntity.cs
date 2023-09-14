@@ -9,6 +9,5 @@ namespace TechnoAcademyApi.Models.Entity
 
         [Required(ErrorMessage = "Link not null")]
         public string? Link { get; set; }
-        public int? Flag { get; set; } = 0;
     }
 }

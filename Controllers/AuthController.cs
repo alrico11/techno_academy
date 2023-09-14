@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TechnoAcademyApi.Models.Dto.Req;
+using TechnoAcademyApi.Models.Dto.Res;
 using TechnoAcademyApi.Models.Entity;
 using TechnoAcademyApi.Services;
 
@@ -17,17 +18,17 @@ namespace TechnoAcademyApi.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] Auth auth)
+        public async Task<ActionResult<Response>> Login([FromBody] Auth auth)
         {
-            var res = _authService.AuthLogin(auth);
-            return res == null ? BadRequest() : Ok(res);
+            var res = await Task.FromResult(_authService.AuthLogin(auth));
+            return res == null ? BadRequest() : new Response("success",res);
         }
 
         [HttpPost("logout")]
-        public IActionResult Logout([FromBody] string token)
+        public async Task<ActionResult<Response>> Logout([FromBody] string token)
         {
             var res = _authService.AuthLogout(token);
-            return res == null ? BadRequest() : Ok(res);
+            return res == null ? BadRequest() : new Response("success", res);
         }
     }
 }

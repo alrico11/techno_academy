@@ -5,12 +5,12 @@ namespace TechnoAcademyApi.Services
 {
     public interface IGCMEntityService
     {
-        ResBase<GCMEntity> Create(GCMEntity entity);
-        ResBase<GCMEntity>? Update(string uuid,GCMEntity entity);
-        ResBase<GCMEntity> Delete(string uuid);
-        ResBase<List<GCMEntity>> GetAll();
-        ResBase<GCMEntity>? GetByUUID(string uuid);
-        ResBase<List<GCMEntity>>? GetByCondition(string condition);
-        ResBase<ResGcmCondition> GetCondition();
+        GCMEntity? Create(GCMEntity entity);
+        GCMEntity? Update(string uuid,GCMEntity entity);
+        GCMEntity? Delete(string uuid);
+        GCMEntity? GetByUUID(string uuid);
+        ResGcmCondition? GetCondition();
+        List<GCMEntity>? GetByCondition(string condition);
+        List<GCMEntity> GetAll();
     }
 }

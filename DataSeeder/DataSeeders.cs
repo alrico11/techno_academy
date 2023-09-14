@@ -23,19 +23,20 @@ namespace TechnoAcademyApi.DataSeeder
                     Semester = 3,
                     IPK = 3.5f,
                     CV = "path/to/cv.pdf",
-                    Domicile = "City"
+                    Domicile = "City",
+                    Flag_Active = true,
                 };
-                dbContext.FormRegisters.AddRange(formRegister1);
+                dbContext.Mst_user.AddRange(formRegister1);
                 dbContext.SaveChanges();
                 var programCategory1 = new ProgramCategory
                 {
                       Name = "Bootcamp",
                       DateStart = DateTime.Now,
                       DateEnd = DateTime.Now.AddMonths(4),
-                      Flag = false
+                      Flag_Active = true
                 };
 
-                dbContext.ProgramCategories.AddRange(programCategory1);
+                dbContext.Mst_program.AddRange(programCategory1);
                 dbContext.SaveChanges();
                 var programEntity1 = new ProgramEntity
                 { 
@@ -53,7 +54,14 @@ namespace TechnoAcademyApi.DataSeeder
                     Desc = "Bootcamp Batch 8 Diselenggarakan 4 Bulan",
                 };
 
-                dbContext.ProgramEntities.AddRange(programEntity1,programEntity2);
+                dbContext.Mst_applied_program.AddRange(programEntity1,programEntity2);
+                dbContext.SaveChanges();
+
+                var roles = new RoleEntity
+                {
+                    RoleName = "admin"
+                };
+                dbContext.Mst_role.Add(roles);
                 dbContext.SaveChanges();
 
                 var mstHeroContent = new GCMEntity
@@ -146,9 +154,9 @@ namespace TechnoAcademyApi.DataSeeder
 
                 var status = new GCMEntity
                 {
-                    Condition = "MST_Benefit",
+                    Condition = "MST_Status",
                     CharValue1 = "001",
-                    CharDesc1 = "Berkas Diterima"
+                    CharDesc1 = "Dokumen diterima"
                 };
 
                 var screening = new GCMEntity
@@ -193,6 +201,26 @@ namespace TechnoAcademyApi.DataSeeder
                     CharDesc1 = "Wawancara HC"
                 };
 
+                var onGoing = new GCMEntity 
+                { 
+                    Condition = "MST_Step_status",
+                    CharValue1 = "001",
+                    CharDesc1 = "Ongoing"
+                };
+
+                var lolos = new GCMEntity
+                {
+                    Condition = "MST_Step_status",
+                    CharValue1 = "002",
+                    CharDesc1 = "Lolos"
+                };
+                var tidakLolos = new GCMEntity
+                {
+                    Condition = "MST_Step_status",
+                    CharValue1 = "002",
+                    CharDesc1 = "Tidak lolos"
+                };
+
                 var entitiesToAdd = new List<GCMEntity>
                     {
                         mstHeroContent,
@@ -211,10 +239,12 @@ namespace TechnoAcademyApi.DataSeeder
                         logicalTest,
                         wawancaraUser1,
                         wawancaraUser2,
-                        wawancaraHC
+                        wawancaraHC,
+                        onGoing,
+                        lolos,
+                        tidakLolos
                     };
-
-            //    dbContext.GCMEntities.AddRange(entitiesToAdd);
+                dbContext.Mst_GCM_Academy.AddRange(entitiesToAdd.ToArray());
                 dbContext.SaveChanges();
             }
         }

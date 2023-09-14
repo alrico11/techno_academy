@@ -1,15 +1,14 @@
-﻿using TechnoAcademyApi.Models.Dto.Res;
-using TechnoAcademyApi.Models.Entity;
+﻿using TechnoAcademyApi.Models.Entity;
 
 namespace TechnoAcademyApi.Services
 {
     public interface IFormRegisterService
     {
-        ResBase<FormRegister> CreateFormRegister(FormRegister formRegister);
-        ResBase<FormRegister> GetFormRegisterByUUID(string uuid);
-        ResBase<FormRegister> GetByEmail(string email);
-        ResBase<List<FormRegister>> GetAllFormRegisters();
-        ResBase<FormRegister> UpdateFormRegister(string uuid, FormRegister formRegister);
-        ResBase<FormRegister> DeleteFormRegister(string uuid);
+        FormRegister? CreateFormRegister(FormRegister formRegister);
+        FormRegister? GetFormRegisterByUUID(string uuid);
+        FormRegister? GetByEmail(string email);
+        List<FormRegister> GetAllFormRegisters();
+        FormRegister? UpdateFormRegister(string uuid, FormRegister formRegister);
+        FormRegister? DeleteFormRegister(string uuid);
     }
 }

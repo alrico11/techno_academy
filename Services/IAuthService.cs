@@ -6,7 +6,7 @@ namespace TechnoAcademyApi.Services
 {
     public interface IAuthService
     {
-        ResBase<TokenEntity> AuthLogin(Auth auth);
-        ResBase<TokenEntity> AuthLogout(string token);
+        TokenEntity AuthLogin(Auth auth);
+        TokenEntity AuthLogout(string token);
     }
 }

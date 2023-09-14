@@ -15,6 +15,5 @@ namespace TechnoAcademyApi.Models.Entity
         public string? Photo {get; set;}
         [JsonPropertyName("published_status")]
         public bool? PublishedStatus { get; set; } = true;
-        public int? Flag { get; set; } = 0;
     }
 }

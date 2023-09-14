@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\magang\\TechnoAcademyApi\\TechnoAcademyApi\\TechnoAcademyApi.csproj": {}
+    "C:\\berijalan-be\\backend-service\\TechnoAcademyApi.csproj": {}
   },
   "projects": {
-    "C:\\magang\\TechnoAcademyApi\\TechnoAcademyApi\\TechnoAcademyApi.csproj": {
+    "C:\\berijalan-be\\backend-service\\TechnoAcademyApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\magang\\TechnoAcademyApi\\TechnoAcademyApi\\TechnoAcademyApi.csproj",
+        "projectUniqueName": "C:\\berijalan-be\\backend-service\\TechnoAcademyApi.csproj",
         "projectName": "TechnoAcademyApi",
-        "projectPath": "C:\\magang\\TechnoAcademyApi\\TechnoAcademyApi\\TechnoAcademyApi.csproj",
+        "projectPath": "C:\\berijalan-be\\backend-service\\TechnoAcademyApi.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\magang\\TechnoAcademyApi\\TechnoAcademyApi\\obj\\",
+        "outputPath": "C:\\berijalan-be\\backend-service\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -45,6 +45,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "AutoWrapper.Core": {
+              "target": "Package",
+              "version": "[4.5.1, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[6.0.0, )"

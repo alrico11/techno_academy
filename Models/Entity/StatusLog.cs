@@ -8,12 +8,11 @@ namespace TechnoAcademyApi.Models.Entity
     {
         [Key]
         public string? UUID { get; set; } = Guid.NewGuid().ToString();
-        public string[]? Status { get; set; }
-        public string[]? Sequence { get; set; }
+        public string? Status { get; set; }
+        public int? Sequence { get; set; }
         [Required(ErrorMessage = "Notes not null")]
-        public string[]? Notes { get; set; }
-        public int StepStatus { get; set; }
-        public string[]? DateHistory { get; set; }
+        public string? Notes { get; set; }
+        public string? StepStatus { get; set; }
         [ForeignKey("AppliedProgram")]
         [JsonPropertyName("id_applied_program")]
         public string? IdAppliedProgram { get; set; }

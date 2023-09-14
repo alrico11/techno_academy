@@ -18,12 +18,6 @@ namespace TechnoAcademyApi.Models.Entity
         public string? CharValue5 { get; set; }
         public string? CharDesc5 { get; set; }
         public string? Pict { get; set; }
-
-        public int? Flag { get; set; } = 0;
-
-        public static implicit operator GCMEntity(List<GCMEntity> v)
-        {
-            throw new NotImplementedException();
-        }
+        public bool? Status { get; set; } = true;
     }
 }

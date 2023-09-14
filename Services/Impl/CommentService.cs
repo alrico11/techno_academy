@@ -12,109 +12,55 @@ namespace TechnoAcademyApi.Services.Impl
         {
             _context = context;
         }
-        public ResBase<List<Comment>> GetAll()
+        public List<Comment> GetAll()
         {
-            var comments = _context.Comments.ToList();
-            return new ResBase<List<Comment>>
-            {
-                Data = comments
-            };
+            var data = _context.Mst_comment_section.Where(x => x.Flag_Active == true)
+                        .ToList();
+            return data;
         }
-        public ResBase<Comment> GetById(string uuid)
+        public Comment? GetById(string uuid)
         {
-            var comment = _context.Comments.FirstOrDefault(x => x.UUID == uuid);
-            if (comment != null)
-            {
-                return new ResBase<Comment>
-                {
-                    Data = comment
-                };
-            }
-            else
-            {
-                return new ResBase<Comment>
-                {
-                    Success = false,
-                    Code = 500,
-                    Message = "Not Found",
-                    Data = null,
-                };
-            }
+            var data = _context.Mst_comment_section.FirstOrDefault(x => x.UUID == uuid);
+            return data == null ? null : data;
         }
-        public ResBase<Comment> Create(Comment comment)
+        public Comment? Create(Comment comment)
         {
             try
             {
-
-                _context.Comments.Add(comment);
+                _context.Mst_comment_section.Add(comment);
                 _context.SaveChanges();
-
-                return new ResBase<Comment>
-                {
-                    Data = comment
-                };
+                return comment;
             }
-            catch (Exception ex)
+            catch
             {
-                return new ResBase<Comment>()
-                {
-                    Success = false,
-                    Code = 500,
-                    Message = $"Failed to create comment: {ex.Message}",
-                    Data = null
-                };
+                return null;
             }
         }
-        public ResBase<Comment> Update(string uuid, Comment comment)
+        public Comment? Update(string uuid, Comment comment)
         {
-            var existingComment = _context.Comments.FirstOrDefault(x => x.UUID == uuid);
-            if (existingComment != null)
+            var existingComment = _context.Mst_comment_section.FirstOrDefault(x => x.UUID == uuid);
+            if (existingComment == null)
             {
-                existingComment.Content = comment.Content;
-                _context.SaveChanges();
-                return new ResBase<Comment>
-                {
-                    Message = "Comment Updated",
-                    Data = existingComment
-                };
+                return null;
             }
-            else
-            {
-                return new ResBase<Comment>
-                {
-                    Success = false,
-                    Code = 500,
-                    Message = "Cant Updated",
-                    Data = null
-                };
+            existingComment.Content = comment.Content;
+            existingComment.Flag_Active = comment.Flag_Active;
 
-            }
+            _context.SaveChanges();
+            return comment;
         }
 
-        public ResBase<Comment> Delete(string uuid)
+        public Comment? Delete(string uuid)
         {
-            var comment = _context.Comments.FirstOrDefault(
+            var comment = _context.Mst_comment_section.FirstOrDefault(
                 x => x.UUID == uuid);
-            if (comment != null)
+            if (comment == null)
             {
-                _context.Comments.Remove(comment);
-                _context.SaveChanges();
-                return new ResBase<Comment>
-                {
-                    Success = true,
-                    Message = "Comment Deleted",
-                    Data = comment
-                };
+                return null;
             }
-            else
-            {
-                return new ResBase<Comment>
-                {
-                    Success = false,
-                    Message = "Comment Not Found",
-                    Data = null
-                };
-            }
+            _context.Mst_comment_section.Remove(comment);
+            _context.SaveChanges();
+            return comment;
         }
     }
 }

@@ -12,99 +12,62 @@ namespace TechnoAcademyApi.Services.Impl
         {
             _context = context;
         }
-        public ResBase<ProgramCategory> Create(ProgramCategory programCategory)
+        public ProgramCategory Create(ProgramCategory programCategory)
         {
             try
             {
-                _context.ProgramCategories.Add(programCategory);
+                _context.Mst_program.Add(programCategory);
                 _context.SaveChanges();
-                return new ResBase<ProgramCategory>()
-                {
-                    Data = programCategory
-                };
-            }catch (Exception ex)
-
+                return programCategory;
+            }
+            catch
             {
-                return new ResBase<ProgramCategory>()
-                {
-                    Success = false,
-                    Message = ex.Message,
-                    Code = 400,
-                    Data = null
-                };
+                return null;
             }
         }
-        public ResBase<ProgramCategory> Delete(string uuid)
+        public ProgramCategory? Delete(string uuid)
         {
-            var data = _context.ProgramCategories.FirstOrDefault(
+            var data = _context.Mst_program.FirstOrDefault(
                 x => x.UUID == uuid);
-            if (data != null)
+            if (data == null)
             {
-                _context.ProgramCategories.Remove(data);
-                _context.SaveChanges();
-                return new ResBase<ProgramCategory>() { Data = data };
+                return null;
             }
-            else
-            {
-                return new ResBase<ProgramCategory>()
-                {
-                    Success = false,
-                    Message = "Not Found",
-                    Code = 404,
-                    Data = null
-                };
-            }
+            _context.Mst_program.Remove(data);
+            _context.SaveChanges();
+            return data;
         }
 
-        public ResBase<List<ProgramCategory>> GetAll()
+        public List<ProgramCategory> GetAll()
         {
-            var data = _context.ProgramCategories.ToList();
-            return new ResBase<List<ProgramCategory>>() { Data = data };
+            var data = _context.Mst_program.Where(x => x.Flag_Active == true).ToList();
+            return data;
         }
 
-        public ResBase<ProgramCategory> GetByUUID(string uuid)
+        public ProgramCategory? GetByUUID(string uuid)
         {
-            var data = _context.ProgramCategories.FirstOrDefault(x => x.UUID == uuid);
-            if (data != null)
+            var data = _context.Mst_program.FirstOrDefault(x => x.UUID == uuid);
+            if (data == null)
             {
-                return new ResBase<ProgramCategory>
-                {
-                    Data = data
-                };
+                return null;
             }
-            else
-            {
-                return new ResBase<ProgramCategory>
-                {
-                    Success = false,
-                    Message = "Failed",
-                    Code = 404,
-                    Data = null
-                };
-            }
+            return data;
         }
 
-        public ResBase<ProgramCategory> Update(string uuid, ProgramCategory programCategory)
+        public ProgramCategory? Update(string uuid, ProgramCategory programCategory)
         {
-            var data = _context.ProgramCategories.FirstOrDefault(x => x.UUID == uuid);
-            if (data != null)
+            var data = _context.Mst_program.FirstOrDefault(x => x.UUID == uuid);
+            if (data == null)
             {
-                data.Name = programCategory.Name;
-                data.Flag = programCategory.Flag;
-                data.DateStart = programCategory.DateStart;
-                data.DateEnd = programCategory.DateEnd;
-                _context.SaveChanges();
-                return new ResBase<ProgramCategory> { Data = data };
+                return null;
             }
-        else{
-                return new ResBase<ProgramCategory>
-                {
-                    Success = false,
-                    Code = 400,
-                    Message = "Cant Update",
-                    Data = null,
-                };
-            }
+            data.Name = programCategory.Name;
+            data.Flag_Active = programCategory.Flag_Active;
+            data.DateStart = programCategory.DateStart;
+            data.DateEnd = programCategory.DateEnd;
+            data.Flag_Active = programCategory.Flag_Active;
+            _context.SaveChanges();
+            return data;
         }
     }
 }

@@ -12,41 +12,48 @@ namespace TechnoAcademyApi.Services.Impl
         {
             _context = context;
         }
-        public ResBase<TestimonyEntity> Create(TestimonyEntity entity)
+        public TestimonyEntity? Create(TestimonyEntity entity)
         {
-            _context.TestimonyEntities.Add(entity);
-            _context.SaveChanges();
-            return new ResBase<TestimonyEntity> { Data = entity };
+            try
+            {
+                _context.Mst_testimony.Add(entity);
+                _context.SaveChanges();
+                return entity;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
-        public ResBase<TestimonyEntity>? Delete(string uuid)
+        public TestimonyEntity? Delete(string uuid)
         {
-            var data = _context.TestimonyEntities.Find(uuid);
+            var data = _context.Mst_testimony.Find(uuid);
             if (data == null)
             {
                 return null;
             };
-            _context.TestimonyEntities.Remove(data);
+            _context.Mst_testimony.Remove(data);
             _context.SaveChanges();
-            return new ResBase<TestimonyEntity> { Message = "Deleted Testimony" };
+            return data;
         }
 
-        public ResBase<TestimonyEntity>? Get(string uuid)
+        public TestimonyEntity? Get(string uuid)
         {
-            var data = _context.TestimonyEntities.Find(uuid);
-            return data == null ? null : new ResBase<TestimonyEntity> { Data = data };
+            var data = _context.Mst_testimony.Find(uuid);
+            return data == null ? null : data;
         }
 
-        public ResBase<List<TestimonyEntity>> GetAll()
+        public List<TestimonyEntity> GetAll()
         {
-            var data = _context.TestimonyEntities.ToList();
-            return new ResBase<List<TestimonyEntity>>
-            { Data = data };
+            var data = _context.Mst_testimony.Where(x => x.Flag_Active == true)
+                        .ToList();
+            return data;
         }
 
-        public ResBase<TestimonyEntity> Update(string uuid, TestimonyEntity entity)
+        public TestimonyEntity? Update(string uuid, TestimonyEntity entity)
         {
-            var data = _context.TestimonyEntities.Find(uuid);
+            var data = _context.Mst_testimony.Find(uuid);
             if (data == null)
             {
                 return null;
@@ -54,9 +61,9 @@ namespace TechnoAcademyApi.Services.Impl
             data.Name = entity.Name;
             data.Photo = entity.Photo;
             data.Description = entity.Description;
+            data.Flag_Active = entity.Flag_Active;
             _context.SaveChanges();
-            return new ResBase<TestimonyEntity> { Message = "Testimony Updated" };
-
+            return entity;
         }
     }
 }

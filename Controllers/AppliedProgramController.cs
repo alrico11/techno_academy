@@ -2,6 +2,7 @@
 using TechnoAcademyApi.Models.Entity;
 using TechnoAcademyApi.Models.Dto.Req;
 using TechnoAcademyApi.Services;
+using TechnoAcademyApi.Models.Dto.Res;
 
 namespace TechnoAcademyApi.Controllers
 {
@@ -17,69 +18,42 @@ namespace TechnoAcademyApi.Controllers
             _appliedProgramService = appliedProgramService;
         }
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<ActionResult<Response>> GetAll()
         {
-            var result = _appliedProgramService.GetAll();
-            if (result.Success) {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            var result = await Task.FromResult(_appliedProgramService.GetAll());
+            return result == null ? NotFound() : new Response("success",result);
         }
 
         [HttpGet("{uuid}")]
-        public IActionResult GetByUUID(string uuid) {
-            var result = _appliedProgramService.GetByUUID(uuid);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+        public async Task<ActionResult<Response>> GetByUUID(string uuid) {
+            var result = await Task.FromResult(_appliedProgramService.GetByUUID(uuid));
+            return result == null ? NotFound() : new Response("success", result);
         }
+
         [HttpPost]
-        public IActionResult Create(AppliedDto appliedProgramDto)
+        public async Task<ActionResult<Response>> Create(AppliedDto appliedProgramDto)
         {
-            var result = _appliedProgramService.Create(appliedProgramDto);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            var result = await Task.FromResult(_appliedProgramService.Create(appliedProgramDto));
+            return new Response("success");
         }
         [HttpPut("{uuid}")]
-        public IActionResult Update(string uuid, AppliedProgram appliedProgram)
+        public async Task<ActionResult<Response>> Update(string uuid, AppliedProgram appliedProgram)
         {
-            var result = _appliedProgramService.Update(uuid, appliedProgram);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            var result = await Task.FromResult(_appliedProgramService.Update(uuid, appliedProgram));
+            return result == null ? NotFound() : new Response("success");
         }
         [HttpDelete("{uuid}")]
-        public IActionResult Delete(string uuid)
+        public async Task<ActionResult<Response>> Delete(string uuid)
         {
-            var result = _appliedProgramService.Delete(uuid);
-            if (result.Success)
-            {
-                return Ok(result);
+            var result = await Task.FromResult(_appliedProgramService.Delete(uuid));
+            return result == null ? NotFound() : new Response("success");
+        }
 
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+        [HttpPut("update-status/{uuid}")]
+        public async Task<ActionResult<Response>> UpdateStatus(string uuid, UpdateStatusReq updateStatusReq)
+        {
+            var result = await Task.FromResult(_appliedProgramService.UpdateStatus(uuid, updateStatusReq));
+            return result == null ? NotFound() : new Response("success");
         }
     }
 }

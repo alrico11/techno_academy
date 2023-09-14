@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.Extensions.DependencyInjection;
 using TechnoAcademyApi.DataSeeder;
 using TechnoAcademyApi.Models.Entity;
 
@@ -14,78 +13,38 @@ namespace TechnoAcademyApi.Data
         {
             _serviceProvider = serviceProvider;
         }
-        public DbSet<FormRegister> FormRegisters { get; set; }
-        public DbSet<Comment> Comments { get; set; }
-        public DbSet<ProgramCategory> ProgramCategories { get; set; }
-        public DbSet<ProgramEntity> ProgramEntities { get; set; }
-        public DbSet<AppliedProgram> AppliedPrograms{ get; set; }
-        public DbSet<StatusLog> StatusLogs{ get; set; }
-        public DbSet<GCMEntity> GCMEntities{ get; set; }
-        public DbSet<MentorEntity> MentoryEntities{ get; set; }
-        public DbSet<GalleryEntity> GalleriesEntites{ get; set; }
-        public DbSet<BannerEntity> BannerEntities{ get; set; }
-        public DbSet<TestimonyEntity> TestimonyEntities{ get; set; }
-        public DbSet<EventEntity> EventEntities{ get; set; }
-        public DbSet<UserEntity> UserEntities{ get; set; }
-        public DbSet<TokenEntity> TokenEntities{ get; set; }
+        public DbSet<FormRegister> Mst_user { get; set; }
+        public DbSet<Comment> Mst_comment_section { get; set; }
+        public DbSet<ProgramCategory> Mst_program { get; set; }
+        public DbSet<ProgramEntity> Mst_applied_program { get; set; }
+        public DbSet<AppliedProgram> Trn_applied_program{ get; set; }
+        public DbSet<StatusLog> Log_status{ get; set; }
+        public DbSet<GCMEntity> Mst_GCM_Academy{ get; set; }
+        public DbSet<MentorEntity> Mst_mentor{ get; set; }
+        public DbSet<GalleryEntity> Mst_gallery{ get; set; }
+        public DbSet<BannerEntity> Mst_banner{ get; set; }
+        public DbSet<TestimonyEntity> Mst_testimony{ get; set; }
+        public DbSet<EventEntity> Mst_event{ get; set; }
+        public DbSet<UserEntity> Mst_user_cms{ get; set; }
+        public DbSet<TokenEntity> Mst_token{ get; set; }
+        public DbSet<RoleEntity> Mst_role{ get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             
             modelBuilder.Entity<FormRegister>(ConfigureFormRegister);
-            //modelBuilder.Entity<AppliedProgramDto>(ConfigureAppliedProgram);
-            modelBuilder.Entity<StatusLog>(ConfigureStatusLog);
         }
         public void SeedData()
         {
             using (var scope = _serviceProvider.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-
-                // Memanggil metode SeedData dari DataSeeder
                 DataSeeders.SeedData(scope.ServiceProvider);
-                // Tambahkan kode lain yang diperlukan di sini
             }
         }
         private void ConfigureFormRegister(EntityTypeBuilder<FormRegister> builder)
         {
-            //builder.Property(f => f.IdProgramEntity)
-            //    .HasConversion(
-            //        v => string.Join(',', v),
-            //          v => v.Split(',', StringSplitOptions.RemoveEmptyEntries));
-            //builder.Property(f => f.IdProgramCategory)
-            //   .HasConversion(
-            //       v => string.Join(',', v),
-            //         v => v.Split(',', StringSplitOptions.RemoveEmptyEntries));
             builder.HasIndex(f => f.Email)
                 .IsUnique();
-        }
-        //private void ConfigureAppliedProgram(EntityTypeBuilder<AppliedProgram> builder)
-        //{
-        //    builder.Property(x => x.IdProgramEntity)
-        //        .HasConversion(
-        //            v => string.Join(',', v),
-        //            v => v.Split(',', StringSplitOptions.RemoveEmptyEntries));
-        //}
-
-        private void ConfigureStatusLog(EntityTypeBuilder<StatusLog> builder)
-        {
-            builder.Property(x => x.Status)
-                .HasConversion(
-                    v => string.Join(',', v),
-                    v => v.Split(',', StringSplitOptions.RemoveEmptyEntries));
-                
-             builder.Property(x => x.Sequence)
-                .HasConversion(
-                    v => string.Join(',', v),
-                    v => v.Split(',', StringSplitOptions.RemoveEmptyEntries)); 
-            builder.Property(x => x.DateHistory)
-                .HasConversion(
-                    v => string.Join(',', v),
-                    v => v.Split(',', StringSplitOptions.RemoveEmptyEntries));
-            builder.Property(x => x.Notes)
-               .HasConversion(
-                   v => string.Join(',', v),
-                   v => v.Split(',', StringSplitOptions.RemoveEmptyEntries));
         }
 
         public override int SaveChanges()

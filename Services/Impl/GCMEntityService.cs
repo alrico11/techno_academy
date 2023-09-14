@@ -13,75 +13,39 @@ namespace TechnoAcademyApi.Services.Impl
         {
             _context = context;
         }
-        public ResBase<GCMEntity> Create(GCMEntity entity)
+        public GCMEntity? Create(GCMEntity entity)
         {
             try
             {
-                _context.GCMEntities.Add(entity);
+                _context.Mst_GCM_Academy.Add(entity);
                 _context.SaveChanges();
-                return new ResBase<GCMEntity>()
-                {
-                    Data = entity
-                };
-            }catch(Exception ex)
-            {
-                return new ResBase<GCMEntity>()
-                {
-                    Success = false,
-                    Message = ex.Message,
-                    Code = 400,
-                    Data = null
-                };
-            }
-        }
-
-        public ResBase<GCMEntity> Delete(string uuid)
-        {
-            var data = _context.GCMEntities.FirstOrDefault(x => x.UUID == uuid);
-            if (data != null)
-            {
-                return new ResBase<GCMEntity> { Message = "Deleted successfully",Data = data };
-            }
-            else
-            {
-                return new ResBase<GCMEntity>
-                {
-                    Message = "Not found",
-                    Code = 404,
-                    Data = null,
-                    Success = false
-                };
-            }
-        }
-
-        public ResBase<List<GCMEntity>> GetAll()
-        {
-           var data = _context.GCMEntities.ToList();
-            return new ResBase<List<GCMEntity>>
-            {
-                Data = data
-            };
-        }
-
-        public ResBase<GCMEntity>? GetByUUID(string uuid)
-        {
-            var data = _context.GCMEntities.FirstOrDefault(x => x.UUID == uuid);
-            if(data != null)
-            {
-                return new ResBase<GCMEntity>
-                {
-                    Data = data
-                };
-            }
-            else
+                return entity;
+            }catch
             {
                 return null;
             }
         }
 
-        public ResBase<GCMEntity>? Update(string uuid, GCMEntity entity)
+        public GCMEntity? Delete(string uuid)
         {
-            var data = _context.GCMEntities.FirstOrDefault(x => x.UUID == uuid);
+            var data = _context.Mst_GCM_Academy.FirstOrDefault(x => x.UUID == uuid);
+            return data == null ? null : data;
+        }
+
+        public List<GCMEntity> GetAll()
+        {
+           var data = _context.Mst_GCM_Academy.Where(x => x.Flag_Active == true).ToList();
+            return data;
+        }
+
+        public GCMEntity? GetByUUID(string uuid)
+        {
+            var data = _context.Mst_GCM_Academy.FirstOrDefault(x => x.UUID == uuid);
+            return data == null ? null : data;
+        }
+        public GCMEntity? Update(string uuid, GCMEntity entity)
+        {
+            var data = _context.Mst_GCM_Academy.FirstOrDefault(x => x.UUID == uuid);
             if(data != null)
             {
                 data.Condition = entity.Condition;
@@ -95,38 +59,30 @@ namespace TechnoAcademyApi.Services.Impl
                 data.CharDesc3 = entity.CharDesc3;
                 data.CharDesc4 = entity.CharDesc4;
                 data.CharDesc5 = entity.CharDesc5;
-                data.Flag = entity.Flag;
+                data.Status = entity.Status;
+                data.Flag_Active = entity.Flag_Active;
                 _context.SaveChanges();
-                return new ResBase<GCMEntity>
-                {
-                    Data = data
-                };
+                return entity;
             }
             else
             {
                 return null;
             }
         }
-        public ResBase<List<GCMEntity>>? GetByCondition(string condition)
+        public List<GCMEntity>? GetByCondition(string condition)
         {
-            var data = _context.GCMEntities.Where(entity => entity.Condition == condition).ToList();
-
-            return data == null ? null : new ResBase<List<GCMEntity>> { Data = data };
+            var data = _context.Mst_GCM_Academy.Where(entity => entity.Condition == condition).ToList();
+            return data == null ? null : data;
         }
-        public ResBase<ResGcmCondition>? GetCondition()
+        public ResGcmCondition? GetCondition()
         {
-            var data = _context.GCMEntities.ToList();
+            var data = _context.Mst_GCM_Academy.ToList();
             var conditions = data.Select(i => i.Condition).Distinct().ToArray();
-
             var newDataCondition = new ResGcmCondition
             {
                 Condition = conditions,
             };
-
-            return data == null? null : new ResBase<ResGcmCondition>
-            {
-                Data = newDataCondition
-            };
+            return data == null ? null : newDataCondition;
         }
     }
 }

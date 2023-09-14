@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TechnoAcademyApi.Models.Dto.Res;
 using TechnoAcademyApi.Models.Entity;
 using TechnoAcademyApi.Services;
 
@@ -14,36 +15,36 @@ namespace TechnoAcademyApi.Controllers
             _galleryService = galleryService;
         }
         [HttpPost]
-        public IActionResult Create(GalleryEntity entity)
+        public async Task<ActionResult<Response>> Create(GalleryEntity entity)
         {
-            var res = _galleryService.Create(entity);
-            return res == null ? BadRequest(res) : Ok(res);
+            var res = await Task.FromResult(_galleryService.Create(entity));
+            return res == null ? BadRequest() : new Response("success", res);
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<ActionResult<Response>> GetAll()
         {
-            var res = _galleryService.GetAll();
-            return res == null ? BadRequest(res) : Ok(res);
+            var res = await Task.FromResult(_galleryService.GetAll());
+            return res == null ? BadRequest() : new Response("success", res);
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(string id) {
-            var res = _galleryService.GetById(id);
-            return res == null ? NotFound(res) : Ok(res);
+        public async Task<ActionResult<Response>> Get(string id) {
+            var res = await Task.FromResult(_galleryService.GetById(id));
+            return res == null ? NotFound() : new Response("success", res);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(string id, GalleryEntity entity)
+        public async Task<ActionResult<Response>> Update(string id, GalleryEntity entity)
         {
-            var res = _galleryService.Update(id, entity);
-            return res == null ? NotFound(res) : Ok(res);
+            var res = await Task.FromResult(_galleryService.Update(id, entity));
+            return res == null ? NotFound(res) : new Response("success", res);
         }
         [HttpDelete("{id}")]
-        public IActionResult Delete(string id)
+        public async Task<ActionResult<Response>> Delete(string id)
         {
-            var res = _galleryService.Delete(id);
-            return res == null ? NotFound(res) : Ok(res);
+            var res = await Task.FromResult(_galleryService.Delete(id));
+            return res == null ? NotFound(res) : new Response("success", res);
         }
     }
 }

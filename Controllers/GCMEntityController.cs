@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MySqlX.XDevAPI.Common;
+using TechnoAcademyApi.Models.Dto.Res;
 using TechnoAcademyApi.Models.Entity;
 using TechnoAcademyApi.Services;
 
@@ -14,79 +16,44 @@ namespace TechnoAcademyApi.Controllers
             _entityService = entityService;
         }
         [HttpPost]
-        public IActionResult Create(GCMEntity entity)
+        public async Task<ActionResult<Response>> Create(GCMEntity entity)
         {
-            var result = _entityService.Create(entity);
-            if (result != null)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return NotFound();
-            }
+            var res = await Task.FromResult(_entityService.Create(entity));
+            return res == null ? BadRequest() : new Response("success");
         }
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<ActionResult<Response>> GetAll()
         {
-            var res = _entityService.GetAll();
-            if (res != null)
-            {
-                return Ok(res);
-            }
-            else
-            {
-                return BadRequest();
-            }
+            var res = await Task.FromResult(_entityService.GetAll());
+            return res == null ? BadRequest() : new Response("success");
         }
         [HttpGet("{uuid}")]
-        public IActionResult GetByUUID(string uuid) {
-            var res = _entityService.GetByUUID(uuid);
-            if (res != null) {
-                return Ok(res);
-            }
-            else
-            {
-                return NotFound();
-            }
+        public async Task<ActionResult<Response>> GetByUUID(string uuid) {
+            var res = await Task.FromResult(_entityService.GetByUUID(uuid));
+            return res == null ? NotFound() : new Response("success", res);
         }
         [HttpPut("{uuid}")]
-        public IActionResult Update(string uuid, GCMEntity entity) {
+        public async Task<ActionResult<Response>> Update(string uuid, GCMEntity entity) {
 
-            var res = _entityService.Update(uuid, entity);
-            if (res != null)
-            {
-                return Ok(res);
-            }
-            else
-            {
-                return NotFound();
-            }
+            var res = await Task.FromResult(_entityService.Update(uuid, entity));
+            return res == null ? NotFound() : new Response("success");
         }
         [HttpDelete("{uuid}")]
-        public IActionResult Delete(string uuid) { 
-            var res = _entityService.Delete(uuid);
-            if (res != null)
-            {
-                return Ok(res);
-            }
-            else
-            {
-                return NotFound();
-            }
+        public async Task<ActionResult<Response>> Delete(string uuid) { 
+            var res = await Task.FromResult(_entityService.Delete(uuid));
+            return res == null ? NotFound() : new Response("success");
         }
         [HttpGet("condition")]
-        public IActionResult GetAllCondition()
+        public async Task<ActionResult<Response>> GetAllCondition()
         {
-
-            var res = _entityService.GetCondition();
-            return res == null ? NotFound() : Ok(res);
+            var res = await Task.FromResult(_entityService.GetCondition());
+            return res == null ? BadRequest() : new Response("success", res);
         }
         [HttpGet("condition/{condition}")]
-        public IActionResult GetByCondition(string condition)
+        public async Task<ActionResult<Response>> GetByCondition(string condition)
         {
-            var res = _entityService.GetByCondition(condition);
-            return res == null ? NotFound() : Ok(res);
+            var res = await Task.FromResult(_entityService.GetByCondition(condition));
+            return res == null ? NotFound() : new Response("success",res);
         }
     }
 }

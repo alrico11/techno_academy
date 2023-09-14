@@ -30,6 +30,9 @@ namespace TechnoAcademyApi.Migrations
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Flag_Active")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("IdProgramEntity")
                         .IsRequired()
                         .HasColumnType("varchar(255)")
@@ -55,7 +58,7 @@ namespace TechnoAcademyApi.Migrations
 
                     b.HasIndex("IdRegister");
 
-                    b.ToTable("AppliedPrograms");
+                    b.ToTable("Trn_applied_program");
                 });
 
             modelBuilder.Entity("TechnoAcademyApi.Models.Entity.BannerEntity", b =>
@@ -69,8 +72,8 @@ namespace TechnoAcademyApi.Migrations
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Flag")
-                        .HasColumnType("int");
+                    b.Property<bool>("Flag_Active")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Link")
                         .IsRequired()
@@ -84,7 +87,7 @@ namespace TechnoAcademyApi.Migrations
 
                     b.HasKey("UUID");
 
-                    b.ToTable("BannerEntities");
+                    b.ToTable("Mst_banner");
                 });
 
             modelBuilder.Entity("TechnoAcademyApi.Models.Entity.Comment", b =>
@@ -106,6 +109,9 @@ namespace TechnoAcademyApi.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<bool>("Flag_Active")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -121,7 +127,7 @@ namespace TechnoAcademyApi.Migrations
 
                     b.HasKey("UUID");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Mst_comment_section");
                 });
 
             modelBuilder.Entity("TechnoAcademyApi.Models.Entity.EventEntity", b =>
@@ -139,8 +145,8 @@ namespace TechnoAcademyApi.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("Flag")
-                        .HasColumnType("int");
+                    b.Property<bool>("Flag_Active")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -162,7 +168,7 @@ namespace TechnoAcademyApi.Migrations
 
                     b.HasKey("UUID");
 
-                    b.ToTable("EventEntities");
+                    b.ToTable("Mst_event");
                 });
 
             modelBuilder.Entity("TechnoAcademyApi.Models.Entity.FormRegister", b =>
@@ -171,9 +177,7 @@ namespace TechnoAcademyApi.Migrations
                         .HasColumnType("varchar(255)");
 
                     b.Property<string>("CV")
-                        .IsRequired()
-                        .HasColumnType("longtext")
-                        .HasAnnotation("Relational:JsonPropertyName", "cv");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
@@ -182,39 +186,36 @@ namespace TechnoAcademyApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Domicile")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("varchar(255)");
 
+                    b.Property<bool>("Flag_Active")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<float>("IPK")
-                        .HasColumnType("float")
-                        .HasAnnotation("Relational:JsonPropertyName", "ipk");
+                        .HasColumnType("float");
 
                     b.Property<string>("Name")
-                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Photo")
                         .HasColumnType("longtext");
 
                     b.Property<int>("Semester")
                         .HasColumnType("int");
 
                     b.Property<bool>("StudentStatus")
-                        .HasColumnType("tinyint(1)")
-                        .HasAnnotation("Relational:JsonPropertyName", "student_status");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("StudyProgram")
-                        .IsRequired()
-                        .HasColumnType("longtext")
-                        .HasAnnotation("Relational:JsonPropertyName", "study_program");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Telephone")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("University")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -228,7 +229,7 @@ namespace TechnoAcademyApi.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("FormRegisters");
+                    b.ToTable("Mst_user");
                 });
 
             modelBuilder.Entity("TechnoAcademyApi.Models.Entity.GCMEntity", b =>
@@ -275,11 +276,14 @@ namespace TechnoAcademyApi.Migrations
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Flag")
-                        .HasColumnType("int");
+                    b.Property<bool>("Flag_Active")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Pict")
                         .HasColumnType("longtext");
+
+                    b.Property<bool?>("Status")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
@@ -289,7 +293,7 @@ namespace TechnoAcademyApi.Migrations
 
                     b.HasKey("UUID");
 
-                    b.ToTable("GCMEntities");
+                    b.ToTable("Mst_GCM_Academy");
                 });
 
             modelBuilder.Entity("TechnoAcademyApi.Models.Entity.GalleryEntity", b =>
@@ -303,8 +307,8 @@ namespace TechnoAcademyApi.Migrations
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Flag")
-                        .HasColumnType("int");
+                    b.Property<bool>("Flag_Active")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Link")
                         .IsRequired()
@@ -318,7 +322,7 @@ namespace TechnoAcademyApi.Migrations
 
                     b.HasKey("UUID");
 
-                    b.ToTable("GalleriesEntites");
+                    b.ToTable("Mst_gallery");
                 });
 
             modelBuilder.Entity("TechnoAcademyApi.Models.Entity.MentorEntity", b =>
@@ -336,8 +340,8 @@ namespace TechnoAcademyApi.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("Flag")
-                        .HasColumnType("int");
+                    b.Property<bool>("Flag_Active")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Framework")
                         .IsRequired()
@@ -358,7 +362,7 @@ namespace TechnoAcademyApi.Migrations
 
                     b.HasKey("UUID");
 
-                    b.ToTable("MentoryEntities");
+                    b.ToTable("Mst_mentor");
                 });
 
             modelBuilder.Entity("TechnoAcademyApi.Models.Entity.ProgramCategory", b =>
@@ -380,7 +384,7 @@ namespace TechnoAcademyApi.Migrations
                         .IsRequired()
                         .HasColumnType("datetime(6)");
 
-                    b.Property<bool>("Flag")
+                    b.Property<bool>("Flag_Active")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Name")
@@ -395,7 +399,7 @@ namespace TechnoAcademyApi.Migrations
 
                     b.HasKey("UUID");
 
-                    b.ToTable("ProgramCategories");
+                    b.ToTable("Mst_program");
                 });
 
             modelBuilder.Entity("TechnoAcademyApi.Models.Entity.ProgramEntity", b =>
@@ -414,6 +418,9 @@ namespace TechnoAcademyApi.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<bool>("Flag")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("Flag_Active")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("IdCategory")
@@ -437,7 +444,35 @@ namespace TechnoAcademyApi.Migrations
 
                     b.HasIndex("IdCategory");
 
-                    b.ToTable("ProgramEntities");
+                    b.ToTable("Mst_applied_program");
+                });
+
+            modelBuilder.Entity("TechnoAcademyApi.Models.Entity.RoleEntity", b =>
+                {
+                    b.Property<string>("UUID")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Flag_Active")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("RoleName")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.HasKey("UUID");
+
+                    b.ToTable("Mst_role");
                 });
 
             modelBuilder.Entity("TechnoAcademyApi.Models.Entity.StatusLog", b =>
@@ -451,8 +486,8 @@ namespace TechnoAcademyApi.Migrations
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
-                    b.Property<string>("DateHistory")
-                        .HasColumnType("longtext");
+                    b.Property<bool>("Flag_Active")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("IdAppliedProgram")
                         .HasColumnType("varchar(255)")
@@ -462,14 +497,14 @@ namespace TechnoAcademyApi.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Sequence")
-                        .HasColumnType("longtext");
+                    b.Property<int?>("Sequence")
+                        .HasColumnType("int");
 
                     b.Property<string>("Status")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("StepStatus")
-                        .HasColumnType("int");
+                    b.Property<string>("StepStatus")
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
@@ -481,7 +516,7 @@ namespace TechnoAcademyApi.Migrations
 
                     b.HasIndex("IdAppliedProgram");
 
-                    b.ToTable("StatusLogs");
+                    b.ToTable("Log_status");
                 });
 
             modelBuilder.Entity("TechnoAcademyApi.Models.Entity.TestimonyEntity", b =>
@@ -499,8 +534,8 @@ namespace TechnoAcademyApi.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("Flag")
-                        .HasColumnType("int");
+                    b.Property<bool>("Flag_Active")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -518,7 +553,7 @@ namespace TechnoAcademyApi.Migrations
 
                     b.HasKey("UUID");
 
-                    b.ToTable("TestimonyEntities");
+                    b.ToTable("Mst_testimony");
                 });
 
             modelBuilder.Entity("TechnoAcademyApi.Models.Entity.TokenEntity", b =>
@@ -536,6 +571,9 @@ namespace TechnoAcademyApi.Migrations
                         .HasColumnType("datetime(6)")
                         .HasAnnotation("Relational:JsonPropertyName", "expired_token");
 
+                    b.Property<bool>("Flag_Active")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("Token")
                         .HasColumnType("longtext");
 
@@ -550,7 +588,7 @@ namespace TechnoAcademyApi.Migrations
 
                     b.HasKey("UUID");
 
-                    b.ToTable("TokenEntities");
+                    b.ToTable("Mst_token");
                 });
 
             modelBuilder.Entity("TechnoAcademyApi.Models.Entity.UserEntity", b =>
@@ -567,8 +605,8 @@ namespace TechnoAcademyApi.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("Flag")
-                        .HasColumnType("int");
+                    b.Property<bool>("Flag_Active")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
@@ -577,7 +615,7 @@ namespace TechnoAcademyApi.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Role")
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Telephone")
                         .HasColumnType("longtext");
@@ -590,7 +628,9 @@ namespace TechnoAcademyApi.Migrations
 
                     b.HasKey("UUID");
 
-                    b.ToTable("UserEntities");
+                    b.HasIndex("Role");
+
+                    b.ToTable("Mst_user_cms");
                 });
 
             modelBuilder.Entity("TechnoAcademyApi.Models.Entity.AppliedProgram", b =>
@@ -630,6 +670,15 @@ namespace TechnoAcademyApi.Migrations
                         .HasForeignKey("IdAppliedProgram");
 
                     b.Navigation("AppliedProgram");
+                });
+
+            modelBuilder.Entity("TechnoAcademyApi.Models.Entity.UserEntity", b =>
+                {
+                    b.HasOne("TechnoAcademyApi.Models.Entity.RoleEntity", "RoleEntity")
+                        .WithMany()
+                        .HasForeignKey("Role");
+
+                    b.Navigation("RoleEntity");
                 });
 #pragma warning restore 612, 618
         }

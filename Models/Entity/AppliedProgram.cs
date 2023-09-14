@@ -7,7 +7,7 @@ namespace TechnoAcademyApi.Models.Entity
     public class AppliedProgram : BaseEntity
     {
         [Key]
-        public string? UUID { get; set; } = Guid.NewGuid().ToString();
+        public string? UUID { get; set; } 
         public string? Last_Status { get; set; }
 
         [Required(ErrorMessage = "Program Entity not null")]

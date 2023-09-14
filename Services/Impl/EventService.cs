@@ -14,43 +14,41 @@ namespace TechnoAcademyApi.Services.Impl
             _context = context;
         }
 
-        public ResBase<EventEntity> Create(EventEntity entity)
+        public EventEntity Create(EventEntity entity)
         {
-            _context.EventEntities.Add(entity);
+            _context.Mst_event.Add(entity);
             _context.SaveChanges();
-            return new ResBase<EventEntity>
-            {
-                Data = entity
-            };
+            return entity;
         }
 
-        public ResBase<EventEntity>? Delete(string uuid)
+        public EventEntity? Delete(string uuid)
         {
-            var data = _context.EventEntities.Find(uuid);
+            var data = _context.Mst_event.Find(uuid);
             if (data == null)
             {
                 return null;
             };
-            _context.EventEntities.Remove(data);
+            _context.Mst_event.Remove(data);
             _context.SaveChanges();
-            return new ResBase<EventEntity> { Message = "Event Deleted" };
+            return data;
         }
 
-        public ResBase<List<EventEntity>> GetAll()
+        public List<EventEntity> GetAll()
         {
-            var data = _context.EventEntities.ToList();
-            return new ResBase<List<EventEntity>> { Data = data };
+            var data = _context.Mst_event.Where(x => x.Flag_Active == true)
+                        .ToList();
+            return data;
         }
 
-        public ResBase<EventEntity>? GetById(string uuid)
+        public EventEntity? GetById(string uuid)
         {
-            var data = _context.EventEntities.Find(uuid);
-            return (data == null) ? null : new ResBase<EventEntity> {  Data = data };
+            var data = _context.Mst_event.Find(uuid);
+            return data == null ? null : data;
         }
 
-        public ResBase<EventEntity>? Update(string uuid, EventEntity entity)
+        public EventEntity? Update(string uuid, EventEntity entity)
         {
-            var data = _context.EventEntities.Find(uuid);
+            var data = _context.Mst_event.Find(uuid);
             if (data == null)
             {
                 return null;
@@ -58,13 +56,10 @@ namespace TechnoAcademyApi.Services.Impl
             data.Name = entity.Name;
             data.Photo = entity.Photo;
             data.Description = entity.Description;
-            data.Flag = entity.Flag;
             data.PublishedStatus = entity.PublishedStatus;
+            data.Flag_Active = entity.Flag_Active;
             _context.SaveChanges();
-            return new ResBase<EventEntity>
-            {
-                Message = "Event Updated"
-            };
+            return data;
         }
     }
 }

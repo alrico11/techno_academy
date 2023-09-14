@@ -1,4 +1,5 @@
 ﻿using TechnoAcademyApi.Data;
+using TechnoAcademyApi.Models.Dto.Req;
 using TechnoAcademyApi.Models.Dto.Res;
 using TechnoAcademyApi.Models.Entity;
 
@@ -12,140 +13,67 @@ namespace TechnoAcademyApi.Services.Impl
         {
             _context = context;
         }
-        public ResBase<List<FormRegister>> GetAllFormRegisters()
+        public List<FormRegister> GetAllFormRegisters()
         {
-            var formRegisters = _context.FormRegisters.ToList();
-            return new ResBase<List<FormRegister>>
-            {
-                Data = formRegisters
-            };
+            List<FormRegister> data = _context.Mst_user.Where(x => x.Flag_Active).ToList();
+            return data;
         }
-        public ResBase<FormRegister> GetFormRegisterByUUID(string uuid)
+        public FormRegister? GetFormRegisterByUUID(string uuid)
         {
-            var formRegister = _context.FormRegisters.FirstOrDefault(f => f.UUID == uuid);
-            if (formRegister != null)
-            {
-                return new ResBase<FormRegister>
-                {
-                    Data = formRegister,
-                };
-            }
-            else
-            {
-                return new ResBase<FormRegister>
-                {
-                    Success = false,
-                    Message = "Not found",
-                    Code = 404,
-                    Data = null,
-                };
-            }
+            var data = _context.Mst_user.FirstOrDefault(f => f.UUID == uuid);
+            return data == null ? null : data;
         }
-        public ResBase<FormRegister> GetByEmail(string email)
+        public FormRegister? GetByEmail(string email)
         {
-            var data = _context.FormRegisters.FirstOrDefault(x => x.Email == email);
-            if (data != null)
-            {
-                return new ResBase<FormRegister> { Data = data };
-            }
-            else
-            {
-                return new ResBase<FormRegister>
-                {
-                    Success = false,
-                    Message = "Not found",
-                    Code = 404,
-                    Data = null
-                };
-            }
+            var data = _context.Mst_user.FirstOrDefault(x => x.Email == email);
+            return data == null ? null : data;
         }
-        public ResBase<FormRegister> CreateFormRegister(FormRegister formRegister)
+        public FormRegister? CreateFormRegister(FormRegister formRegister)
         {
-            bool emailExists = _context.FormRegisters.Any(fr => fr.Email == formRegister.Email);
+            bool emailExists = _context.Mst_user.Any(fr => fr.Email == formRegister.Email);
             if (emailExists)
             {
-                return new ResBase<FormRegister>
-                {
-                    Success = false,
-                    Message = "Email already registered",
-                    Code = 409,
-                    Data = null,
-                };
+                return null;
             }
             try
             {
-                _context.FormRegisters.Add(formRegister);
+                _context.Mst_user.Add(formRegister);
                 _context.SaveChanges();
-
-                return new ResBase<FormRegister>
-                {
-                    Code = 201,
-                    Data = formRegister
-                };
+                return formRegister;
             }
-            catch (Exception ex)
+            catch
             {
-                return new ResBase<FormRegister>
-                {
-                    Success = false,
-                    Message = ex.Message,
-                    Code = 500,
-                    Data = null,
-                };
+                return null;
             }
         }
-        public ResBase<FormRegister> UpdateFormRegister(string uuid, FormRegister formRegister)
+        public FormRegister? UpdateFormRegister(string uuid, FormRegister formRegister)
         {
-            var existingFormRegister = _context.FormRegisters.FirstOrDefault(f => f.UUID == uuid);
-            if (existingFormRegister != null)
+            var data = _context.Mst_user.FirstOrDefault(f => f.UUID == uuid);
+            if (data == null)
             {
-                existingFormRegister.Name = formRegister.Name;
-                existingFormRegister.Semester = formRegister.Semester;
-                existingFormRegister.StudentStatus = formRegister.StudentStatus;
-                existingFormRegister.IPK = formRegister.IPK;
-                existingFormRegister.CV = formRegister.CV;
-                existingFormRegister.University = formRegister.University;
-                existingFormRegister.StudyProgram = formRegister.StudyProgram;
-                _context.SaveChanges();
-                return new ResBase<FormRegister>
-                {
-                    Data = existingFormRegister
-                };
+                return null;
             }
-            else
-            {
-                return new ResBase<FormRegister>
-                {
-                    Success = false,
-                    Message = "Not Found",
-                    Code = 404,
-                    Data = null,
-                };
-            }
+            data.Name = formRegister.Name;
+            data.Semester = formRegister.Semester;
+            data.StudentStatus = formRegister.StudentStatus;
+            data.IPK = formRegister.IPK;
+            data.CV = formRegister.CV;
+            data.University = formRegister.University;
+            data.StudyProgram = formRegister.StudyProgram;
+            data.Flag_Active = formRegister.Flag_Active;
+            _context.SaveChanges();
+            return formRegister;
         }
-        public ResBase<FormRegister> DeleteFormRegister(string uuid)
+        public FormRegister? DeleteFormRegister(string uuid)
         {
-            var formRegister = _context.FormRegisters.FirstOrDefault(f => f.UUID == uuid);
-            if (formRegister != null)
+            var formRegister = _context.Mst_user.FirstOrDefault(f => f.UUID == uuid);
+            if (formRegister == null)
             {
-                _context.FormRegisters.Remove(formRegister);
-                _context.SaveChanges();
-
-                return new ResBase<FormRegister>
-                {
-                    Data = formRegister
-                };
-            }
-            else
-            {
-                return new ResBase<FormRegister>
-                {
-                    Success = false,
-                    Message = "Not found",
-                    Code = 404,
-                    Data = null,
-                };
-            }
+                return null;
+            };
+            _context.Mst_user.Remove(formRegister);
+            _context.SaveChanges();
+            return formRegister;
         }
     }
 }

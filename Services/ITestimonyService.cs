@@ -5,10 +5,10 @@ namespace TechnoAcademyApi.Services
 {
     public interface ITestimonyService
     {
-        ResBase<TestimonyEntity>? Get(string uuid);
-        ResBase<List<TestimonyEntity>> GetAll();
-        ResBase<TestimonyEntity> Create(TestimonyEntity entity);
-        ResBase<TestimonyEntity>? Update(string uuid,TestimonyEntity entity);
-        ResBase<TestimonyEntity>? Delete(string uuid);
+        List<TestimonyEntity> GetAll();
+        TestimonyEntity? Get(string uuid);
+        TestimonyEntity? Create(TestimonyEntity entity);
+        TestimonyEntity? Update(string uuid,TestimonyEntity entity);
+        TestimonyEntity? Delete(string uuid);
     }
 }

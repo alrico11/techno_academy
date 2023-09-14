@@ -5,10 +5,10 @@ namespace TechnoAcademyApi.Services
 {
     public interface IMentorService
     {
-        ResBase<MentorEntity>? Create(MentorEntity entity);
-        ResBase<MentorEntity>? Update(string uuid,MentorEntity entity);
-        ResBase<MentorEntity>? Delete(string uuid);
-        ResBase<MentorEntity>? GetByUUID(string uuid);
-        ResBase<List<MentorEntity>>? GetAll();
+        MentorEntity? Create(MentorEntity entity);
+        MentorEntity? Update(string uuid,MentorEntity entity);
+        MentorEntity? Delete(string uuid);
+        MentorEntity? GetByUUID(string uuid);
+        List<MentorEntity>? GetAll();
     }
 }

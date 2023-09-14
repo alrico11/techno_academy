@@ -5,10 +5,10 @@ namespace TechnoAcademyApi.Services
 {
     public interface IEventService
     {
-        ResBase<EventEntity>Create(EventEntity entity);
-        ResBase<EventEntity>? Update(string uuid, EventEntity entity);
-        ResBase<EventEntity>? Delete(string uuid);
-        ResBase<EventEntity>? GetById(string uuid);
-        ResBase<List<EventEntity>> GetAll();
+        EventEntity? Create(EventEntity entity);
+        EventEntity? Update(string uuid, EventEntity entity);
+        EventEntity? Delete(string uuid);
+        EventEntity? GetById(string uuid);
+        List<EventEntity> GetAll();
     }
 }

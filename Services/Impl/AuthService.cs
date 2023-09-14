@@ -22,14 +22,15 @@ namespace TechnoAcademyApi.Services
             _jwtTokenService = jwtTokenService;
             _context = context;
         }
-        ResBase<TokenEntity> IAuthService.AuthLogin(Auth auth)
+
+        public TokenEntity AuthLogin(Auth auth)
         {
             if (string.IsNullOrEmpty(auth.Email) || string.IsNullOrEmpty(auth.Password))
             {
                 return null;
             }
 
-            var user = _context.UserEntities.SingleOrDefault(u => u.Email == auth.Email);
+            var user = _context.Mst_user_cms.SingleOrDefault(u => u.Email == auth.Email);
             if (user == null)
             {
                 return null;
@@ -38,11 +39,7 @@ namespace TechnoAcademyApi.Services
             var encryptedPassword = PasswordHelper.EncryptPassword(auth.Password);
             if (user.Password != encryptedPassword)
             {
-                return new ResBase<TokenEntity>
-                {
-                    Message = "Invalid Email & Password",
-                    Code = 401,
-                };
+                return null;
             }
 
             var token = _jwtTokenService.GenerateToken(user);
@@ -54,21 +51,15 @@ namespace TechnoAcademyApi.Services
                 ExpiredToken = DateTime.Now.AddMinutes(30)
             };
 
-            _context.TokenEntities.Add(tokenEntity);
+            _context.Mst_token.Add(tokenEntity);
             _context.SaveChanges();
 
-            return new ResBase<TokenEntity>
-            {
-                Data = tokenEntity,
-            };
+            return tokenEntity;
         }
 
-        ResBase<TokenEntity> IAuthService.AuthLogout(string token)
+        public TokenEntity AuthLogout(string token)
         {
-            return new ResBase<TokenEntity>
-            {
-                Message = "Success Logout"
-            };
+            return null;
         }
     }
 }

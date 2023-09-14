@@ -15,27 +15,27 @@ namespace TechnoAcademyApi.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "BannerEntities",
+                name: "Mst_banner",
                 columns: table => new
                 {
                     UUID = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Link = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Flag = table.Column<int>(type: "int", nullable: true),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     UpdatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Flag_Active = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BannerEntities", x => x.UUID);
+                    table.PrimaryKey("PK_Mst_banner", x => x.UUID);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Comments",
+                name: "Mst_comment_section",
                 columns: table => new
                 {
                     UUID = table.Column<string>(type: "varchar(255)", nullable: false)
@@ -51,16 +51,17 @@ namespace TechnoAcademyApi.Migrations
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     UpdatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Flag_Active = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comments", x => x.UUID);
+                    table.PrimaryKey("PK_Mst_comment_section", x => x.UUID);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "EventEntities",
+                name: "Mst_event",
                 columns: table => new
                 {
                     UUID = table.Column<string>(type: "varchar(255)", nullable: false)
@@ -72,74 +73,40 @@ namespace TechnoAcademyApi.Migrations
                     Photo = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     PublishedStatus = table.Column<bool>(type: "tinyint(1)", nullable: true),
-                    Flag = table.Column<int>(type: "int", nullable: true),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     UpdatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Flag_Active = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EventEntities", x => x.UUID);
+                    table.PrimaryKey("PK_Mst_event", x => x.UUID);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "FormRegisters",
-                columns: table => new
-                {
-                    UUID = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Name = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Telephone = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Email = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    University = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    StudyProgram = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    StudentStatus = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    Semester = table.Column<int>(type: "int", nullable: false),
-                    IPK = table.Column<float>(type: "float", nullable: false),
-                    CV = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Domicile = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    CreatedBy = table.Column<int>(type: "int", nullable: false),
-                    UpdatedBy = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FormRegisters", x => x.UUID);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "GalleriesEntites",
+                name: "Mst_gallery",
                 columns: table => new
                 {
                     UUID = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Link = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Flag = table.Column<int>(type: "int", nullable: true),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     UpdatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Flag_Active = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GalleriesEntites", x => x.UUID);
+                    table.PrimaryKey("PK_Mst_gallery", x => x.UUID);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "GCMEntities",
+                name: "Mst_GCM_Academy",
                 columns: table => new
                 {
                     UUID = table.Column<string>(type: "varchar(255)", nullable: false)
@@ -168,20 +135,21 @@ namespace TechnoAcademyApi.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Pict = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Flag = table.Column<int>(type: "int", nullable: true),
+                    Status = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     UpdatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Flag_Active = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GCMEntities", x => x.UUID);
+                    table.PrimaryKey("PK_Mst_GCM_Academy", x => x.UUID);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "MentoryEntities",
+                name: "Mst_mentor",
                 columns: table => new
                 {
                     UUID = table.Column<string>(type: "varchar(255)", nullable: false)
@@ -192,22 +160,22 @@ namespace TechnoAcademyApi.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Flag = table.Column<int>(type: "int", nullable: true),
                     Photo = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     UpdatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Flag_Active = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MentoryEntities", x => x.UUID);
+                    table.PrimaryKey("PK_Mst_mentor", x => x.UUID);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "ProgramCategories",
+                name: "Mst_program",
                 columns: table => new
                 {
                     UUID = table.Column<string>(type: "varchar(255)", nullable: false)
@@ -216,20 +184,40 @@ namespace TechnoAcademyApi.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     DateStart = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     DateEnd = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Flag = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     UpdatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Flag_Active = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProgramCategories", x => x.UUID);
+                    table.PrimaryKey("PK_Mst_program", x => x.UUID);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "TestimonyEntities",
+                name: "Mst_role",
+                columns: table => new
+                {
+                    UUID = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    RoleName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CreatedBy = table.Column<int>(type: "int", nullable: false),
+                    UpdatedBy = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Flag_Active = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Mst_role", x => x.UUID);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Mst_testimony",
                 columns: table => new
                 {
                     UUID = table.Column<string>(type: "varchar(255)", nullable: false)
@@ -240,20 +228,20 @@ namespace TechnoAcademyApi.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Flag = table.Column<int>(type: "int", nullable: true),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     UpdatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Flag_Active = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TestimonyEntities", x => x.UUID);
+                    table.PrimaryKey("PK_Mst_testimony", x => x.UUID);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "TokenEntities",
+                name: "Mst_token",
                 columns: table => new
                 {
                     UUID = table.Column<string>(type: "varchar(255)", nullable: false)
@@ -266,44 +254,54 @@ namespace TechnoAcademyApi.Migrations
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     UpdatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Flag_Active = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TokenEntities", x => x.UUID);
+                    table.PrimaryKey("PK_Mst_token", x => x.UUID);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "UserEntities",
+                name: "Mst_user",
                 columns: table => new
                 {
                     UUID = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Name = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Email = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Password = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Telephone = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Role = table.Column<string>(type: "longtext", nullable: true)
+                    Email = table.Column<string>(type: "varchar(255)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Flag = table.Column<int>(type: "int", nullable: true),
+                    University = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    StudyProgram = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    StudentStatus = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    Semester = table.Column<int>(type: "int", nullable: false),
+                    IPK = table.Column<float>(type: "float", nullable: false),
+                    CV = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Domicile = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Photo = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     UpdatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Flag_Active = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserEntities", x => x.UUID);
+                    table.PrimaryKey("PK_Mst_user", x => x.UUID);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "ProgramEntities",
+                name: "Mst_applied_program",
                 columns: table => new
                 {
                     UUID = table.Column<string>(type: "varchar(255)", nullable: false)
@@ -319,22 +317,56 @@ namespace TechnoAcademyApi.Migrations
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     UpdatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Flag_Active = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProgramEntities", x => x.UUID);
+                    table.PrimaryKey("PK_Mst_applied_program", x => x.UUID);
                     table.ForeignKey(
-                        name: "FK_ProgramEntities_ProgramCategories_IdCategory",
+                        name: "FK_Mst_applied_program_Mst_program_IdCategory",
                         column: x => x.IdCategory,
-                        principalTable: "ProgramCategories",
+                        principalTable: "Mst_program",
                         principalColumn: "UUID",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "AppliedPrograms",
+                name: "Mst_user_cms",
+                columns: table => new
+                {
+                    UUID = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Name = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Email = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Password = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Telephone = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Role = table.Column<string>(type: "varchar(255)", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CreatedBy = table.Column<int>(type: "int", nullable: false),
+                    UpdatedBy = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Flag_Active = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Mst_user_cms", x => x.UUID);
+                    table.ForeignKey(
+                        name: "FK_Mst_user_cms_Mst_role_Role",
+                        column: x => x.Role,
+                        principalTable: "Mst_role",
+                        principalColumn: "UUID");
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Trn_applied_program",
                 columns: table => new
                 {
                     UUID = table.Column<string>(type: "varchar(255)", nullable: false)
@@ -348,130 +380,138 @@ namespace TechnoAcademyApi.Migrations
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     UpdatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Flag_Active = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AppliedPrograms", x => x.UUID);
+                    table.PrimaryKey("PK_Trn_applied_program", x => x.UUID);
                     table.ForeignKey(
-                        name: "FK_AppliedPrograms_FormRegisters_IdRegister",
-                        column: x => x.IdRegister,
-                        principalTable: "FormRegisters",
+                        name: "FK_Trn_applied_program_Mst_applied_program_IdProgramEntity",
+                        column: x => x.IdProgramEntity,
+                        principalTable: "Mst_applied_program",
                         principalColumn: "UUID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AppliedPrograms_ProgramEntities_IdProgramEntity",
-                        column: x => x.IdProgramEntity,
-                        principalTable: "ProgramEntities",
+                        name: "FK_Trn_applied_program_Mst_user_IdRegister",
+                        column: x => x.IdRegister,
+                        principalTable: "Mst_user",
                         principalColumn: "UUID",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "StatusLogs",
+                name: "Log_status",
                 columns: table => new
                 {
                     UUID = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Status = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Sequence = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Sequence = table.Column<int>(type: "int", nullable: true),
                     Notes = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    StepStatus = table.Column<int>(type: "int", nullable: false),
-                    DateHistory = table.Column<string>(type: "longtext", nullable: true)
+                    StepStatus = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     IdAppliedProgram = table.Column<string>(type: "varchar(255)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     UpdatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Flag_Active = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StatusLogs", x => x.UUID);
+                    table.PrimaryKey("PK_Log_status", x => x.UUID);
                     table.ForeignKey(
-                        name: "FK_StatusLogs_AppliedPrograms_IdAppliedProgram",
+                        name: "FK_Log_status_Trn_applied_program_IdAppliedProgram",
                         column: x => x.IdAppliedProgram,
-                        principalTable: "AppliedPrograms",
+                        principalTable: "Trn_applied_program",
                         principalColumn: "UUID");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AppliedPrograms_IdProgramEntity",
-                table: "AppliedPrograms",
-                column: "IdProgramEntity");
+                name: "IX_Log_status_IdAppliedProgram",
+                table: "Log_status",
+                column: "IdAppliedProgram");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AppliedPrograms_IdRegister",
-                table: "AppliedPrograms",
-                column: "IdRegister");
+                name: "IX_Mst_applied_program_IdCategory",
+                table: "Mst_applied_program",
+                column: "IdCategory");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FormRegisters_Email",
-                table: "FormRegisters",
+                name: "IX_Mst_user_Email",
+                table: "Mst_user",
                 column: "Email",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProgramEntities_IdCategory",
-                table: "ProgramEntities",
-                column: "IdCategory");
+                name: "IX_Mst_user_cms_Role",
+                table: "Mst_user_cms",
+                column: "Role");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StatusLogs_IdAppliedProgram",
-                table: "StatusLogs",
-                column: "IdAppliedProgram");
+                name: "IX_Trn_applied_program_IdProgramEntity",
+                table: "Trn_applied_program",
+                column: "IdProgramEntity");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trn_applied_program_IdRegister",
+                table: "Trn_applied_program",
+                column: "IdRegister");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "BannerEntities");
+                name: "Log_status");
 
             migrationBuilder.DropTable(
-                name: "Comments");
+                name: "Mst_banner");
 
             migrationBuilder.DropTable(
-                name: "EventEntities");
+                name: "Mst_comment_section");
 
             migrationBuilder.DropTable(
-                name: "GalleriesEntites");
+                name: "Mst_event");
 
             migrationBuilder.DropTable(
-                name: "GCMEntities");
+                name: "Mst_gallery");
 
             migrationBuilder.DropTable(
-                name: "MentoryEntities");
+                name: "Mst_GCM_Academy");
 
             migrationBuilder.DropTable(
-                name: "StatusLogs");
+                name: "Mst_mentor");
 
             migrationBuilder.DropTable(
-                name: "TestimonyEntities");
+                name: "Mst_testimony");
 
             migrationBuilder.DropTable(
-                name: "TokenEntities");
+                name: "Mst_token");
 
             migrationBuilder.DropTable(
-                name: "UserEntities");
+                name: "Mst_user_cms");
 
             migrationBuilder.DropTable(
-                name: "AppliedPrograms");
+                name: "Trn_applied_program");
 
             migrationBuilder.DropTable(
-                name: "FormRegisters");
+                name: "Mst_role");
 
             migrationBuilder.DropTable(
-                name: "ProgramEntities");
+                name: "Mst_applied_program");
 
             migrationBuilder.DropTable(
-                name: "ProgramCategories");
+                name: "Mst_user");
+
+            migrationBuilder.DropTable(
+                name: "Mst_program");
         }
     }
 }

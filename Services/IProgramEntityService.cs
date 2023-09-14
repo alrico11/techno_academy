@@ -5,10 +5,10 @@ namespace TechnoAcademyApi.Services
 {
     public interface IProgramEntityService
     {
-        ResBase<ProgramEntity> Create(ProgramEntity programEntity);
-        ResBase<ProgramEntity> Update(string uuid, ProgramEntity programEntity);
-        ResBase<ProgramEntity> Delete(string uuid);
-        ResBase<ProgramEntity> GetByUUID(string uuid);
-        ResBase<List<ProgramEntity>> GetAll();
+        ProgramEntity? Create(ProgramEntity programEntity);
+        ProgramEntity? Update(string uuid, ProgramEntity programEntity);
+        ProgramEntity? Delete(string uuid);
+        ProgramEntity? GetByUUID(string uuid);
+        List<ProgramEntity> GetAll();
     }
 }

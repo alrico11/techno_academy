@@ -12,7 +12,6 @@ namespace TechnoAcademyApi.Models.Entity
         public string? Framework { get; set; }
         [Required(ErrorMessage = "Description not null")]
         public string? Description { get; set; }
-        public int? Flag { get; set; } = 0;
         public string? Photo { get; set; }
 
     }

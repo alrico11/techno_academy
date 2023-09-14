@@ -13,70 +13,55 @@ namespace TechnoAcademyApi.Services.Impl
             _context = context;
         }
 
-        public ResBase<BannerEntity> Create(BannerEntity entity)
+        public BannerEntity? Create(BannerEntity entity)
         {
             try
             {
-                _context.BannerEntities.Add(entity);
+                _context.Mst_banner.Add(entity);
                 _context.SaveChanges();
-                return new ResBase<BannerEntity>
-                {
-                    Data = entity
-                };
-            }catch(Exception ex)
+                return entity;
+            }catch
             {
-                return new ResBase<BannerEntity> { Message = ex.Message, Data = null, Code = 400, Success = false };
-
+                return null;
             }
         }
-
-        public ResBase<BannerEntity>? Delete(string uuid)
+        public BannerEntity? Delete(string uuid)
         {
-            var data = _context.BannerEntities.Find(uuid);
+            var data = _context.Mst_banner.Find(uuid);
             if (data == null)
             {
                 return null;
             };
-            _context.BannerEntities.Remove(data);
+            _context.Mst_banner.Remove(data);
             _context.SaveChanges();
-            return new ResBase<BannerEntity>
-            {
-                Message = "Banner Deleted"
-            };
+            return data;
         }
 
-        public ResBase<List<BannerEntity>>? GetAll()
+        public List<BannerEntity>? GetAll()
         {
-            var data = _context.BannerEntities.ToList();
-            return new ResBase<List<BannerEntity>>
-            {
-                Data = data
-            };
+            var data = _context.Mst_banner
+                        .Where(x => x.Flag_Active == true)
+                        .ToList();
+            return data;
         }
 
-        public ResBase<BannerEntity>? GetById(string uuid)
+        public BannerEntity? GetById(string uuid)
         {
-            var data = _context.BannerEntities.Find(uuid);
-            return data == null ? null : new ResBase<BannerEntity>
-            {
-                Data = data
-            };
+            var data = _context.Mst_banner.Find(uuid);
+            return data == null ? null : data;
         }
 
-        public ResBase<BannerEntity>? Update(string uuid, BannerEntity entity)
+        public BannerEntity? Update(string uuid, BannerEntity entity)
         {
-            var data = _context.BannerEntities.Find(uuid);
+            var data = _context.Mst_banner.Find(uuid);
             if(data == null)
             {
                 return null;
             };
             data.Link = entity.Link;
-            data.Flag = entity.Flag;
+            data.Flag_Active = entity.Flag_Active;
             _context.SaveChanges();
-            return new ResBase<BannerEntity>
-            {
-                Message = "Banner Updated"
-            };
+            return data;
         }
     }
 }

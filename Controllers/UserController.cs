@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Org.BouncyCastle.Asn1.Crmf;
+using TechnoAcademyApi.Models.Dto.Req;
+using TechnoAcademyApi.Models.Dto.Res;
 using TechnoAcademyApi.Models.Entity;
 using TechnoAcademyApi.Services;
 
@@ -19,35 +20,34 @@ namespace TechnoAcademyApi.Controllers
         
         [HttpPost]
        
-        public IActionResult Create(UserEntity entity)
+        public async Task<ActionResult<Response>> Create(UserCmsReq entity)
         {
-            var res = _userService.Create(entity);
-            return res == null ? BadRequest(res) : Ok(res);
+            var res = await Task.FromResult(_userService.Create(entity));
+            return res == null ? BadRequest(res) : new Response("success");
         }
 
         [HttpGet("{uuid}")]
-        public IActionResult GetById(string uuid) {
-        var res = _userService.GetById(uuid);
-            return res == null ? NotFound(res) : Ok(res);
+        public async Task<ActionResult<Response>> GetById(string uuid) {
+        var res = await Task.FromResult(_userService.GetById(uuid));
+            return res == null ? NotFound(res) : new Response("success",res);
         }
         [HttpGet]
-        [Authorize]
-        public IActionResult GetAll()
+        public async Task<ActionResult<Response>> GetAll()
         {
-            var res = _userService.GetAll();
-            return res == null? BadRequest(res) : Ok(res);
+            var res = await Task.FromResult(_userService.GetAll());
+            return res == null? BadRequest(res) : new Response("success",res);
         }
         [HttpPut("{uuid}")]
-        public IActionResult Update(string uuid,UserEntity entity) {
+        public async Task<ActionResult<Response>> Update(string uuid,UserEntity entity) {
         
-            var res = _userService.Update(uuid,entity);
-            return res == null ? NotFound(res) : Ok(res);
+            var res = await Task.FromResult(_userService.Update(uuid,entity));
+            return res == null ? NotFound(res) : new Response("success");
         }
         [HttpDelete("{uuid}")]
-        public IActionResult DeleteById(string uuid)
+        public async Task<ActionResult<Response>> DeleteById(string uuid)
         {
-            var res = _userService.Delete(uuid);
-            return res == null ? NotFound() : Ok(res);
+            var res = await Task.FromResult(_userService.Delete(uuid));
+            return res == null ? NotFound() : new Response("success");
         }
     }
 }

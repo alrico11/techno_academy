@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using AutoWrapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using TechnoAcademyApi.Data;
+using TechnoAcademyApi.Models.Dto.Res;
 using TechnoAcademyApi.Services;
 using TechnoAcademyApi.Services.Impl;
 
@@ -20,9 +22,6 @@ namespace TechnoAcademyApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            // Mengambil konfigurasi JWT dari appsettings.json
-            
-
             // Konfigurasi koneksi database MySQL
             string connectionString = _configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -34,7 +33,6 @@ namespace TechnoAcademyApi
             services.AddScoped<IProgramCategoryService, ProgramCategoryService>();
             services.AddScoped<IProgramEntityService, ProgramEntityService>();
             services.AddScoped<IAppliedProgramService, AppliedProgramService>();
-            services.AddScoped<IStatusLogService, StatusLogService>();
             services.AddScoped<IGCMEntityService, GCMEntityService>();
             services.AddScoped<IMentorService, MentorService>();
             services.AddScoped<IGalleryService, GalleryService>();
@@ -99,6 +97,7 @@ namespace TechnoAcademyApi
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseApiResponseAndExceptionWrapper<MapResponseObject>(new AutoWrapperOptions { ShowStatusCode = true });
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TechnoAcademyApi.Models.Dto.Res;
 using TechnoAcademyApi.Models.Entity;
 using TechnoAcademyApi.Services;
 
@@ -16,69 +17,34 @@ namespace TechnoAcademyApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(ProgramCategory programCategory)
+        public async Task<ActionResult<Response>> Create(ProgramCategory programCategory)
         {
-            var result = _programCategoryService.Create(programCategory);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest();
-            }
+            var res = await Task.FromResult(_programCategoryService.Create(programCategory));
+            return res == null ? BadRequest() : new Response("success");
         }
         [HttpGet("{uuid}")]
-        public IActionResult GetByUUID(string uuid)
+        public async Task<ActionResult<Response>> GetByUUID(string uuid)
         {
-            var result = _programCategoryService.GetByUUID(uuid);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            var res = await Task.FromResult(_programCategoryService.GetByUUID(uuid));
+            return res == null ? NotFound() : new Response("success",res);
         }
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<ActionResult<Response>> GetAll()
         {
-            var result = _programCategoryService.GetAll();
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            var res = await Task.FromResult(_programCategoryService.GetAll());
+            return res == null ? BadRequest() : new Response("success",res);
         }
         [HttpPut("{uuid}")]
-        public IActionResult Update(string uuid, ProgramCategory programCategory)
+        public async Task<ActionResult<Response>> Update(string uuid, ProgramCategory programCategory)
         {
-            var result = _programCategoryService.Update(uuid,programCategory);
-            if (result.Success)
-            {
-                  return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result); 
-            }
+            var res = await Task.FromResult(_programCategoryService.Update(uuid,programCategory));
+            return res == null ? NotFound() : new Response("success");
         }
         [HttpDelete("{uuid}")]
-        public IActionResult Delete(string uuid)
+        public async Task<ActionResult<Response>> Delete(string uuid)
         {
-            var result = _programCategoryService.Delete(uuid);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            var res = await Task.FromResult(_programCategoryService.Delete(uuid));
+            return res == null ? NotFound() : new Response("success");
         }
     }
 }

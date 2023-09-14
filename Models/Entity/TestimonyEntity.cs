@@ -15,6 +15,5 @@ namespace TechnoAcademyApi.Models.Entity
         
         [Required(ErrorMessage = "Description Not Null")]
         public string? Description { get; set; }
-        public int? Flag { get; set; } = 0;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TechnoAcademyApi.Models.Dto.Res;
 using TechnoAcademyApi.Models.Entity;
 using TechnoAcademyApi.Services;
 
@@ -14,69 +15,34 @@ namespace TechnoAcademyApi.Controllers
             _commentService = commentService;
         }
         [HttpPost]
-        public IActionResult Create(Comment comment)
+        public async Task<ActionResult<Response>> Create(Comment comment)
         {
-            var result = _commentService.Create(comment);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            var res = await Task.FromResult(_commentService.Create(comment));
+            return res == null ? BadRequest() : new Response("success");
         }
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<ActionResult<Response>> GetAll()
         {
-            var result = _commentService.GetAll();
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            var res = await Task.FromResult(_commentService.GetAll());
+            return res == null ? BadRequest() : new Response("success", res);
         }
         [HttpGet("{uuid}")]
-        public IActionResult GetById(string uuid) {
-            var result = _commentService.GetById(uuid);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+        public async Task<ActionResult<Response>> GetById(string uuid) {
+            var res = await Task.FromResult(_commentService.GetById(uuid));
+            return res == null ? NotFound() : new Response("success", res);
         }
         [HttpPut("{uuid}")]
-        public IActionResult Update(string uuid, Comment comment)
+        public async Task<ActionResult<Response>> Update(string uuid, Comment comment)
         {
-            var result = _commentService.Update(uuid, comment);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            var res = await Task.FromResult(_commentService.Update(uuid, comment));
+            return res == null ? NotFound() : new Response("success", res);
 
         }
         [HttpDelete("{uuid}")]
-        public IActionResult Delete(string uuid)
+        public async Task<ActionResult<Response>> Delete(string uuid)
         {
-            var result = _commentService.Delete(uuid);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            var res = await Task.FromResult(_commentService.Delete(uuid));
+            return res == null ? NotFound() : new Response("success", res);
         }
     }
 }

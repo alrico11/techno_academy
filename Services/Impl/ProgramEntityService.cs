@@ -14,139 +14,71 @@ namespace TechnoAcademyApi.Services.Impl
             _context = context;
         }
 
-        public ResBase<ProgramEntity> Create(ProgramEntity programEntity)
+        public ProgramEntity? Create(ProgramEntity programEntity)
         {
             try
             {
-                _context.ProgramEntities.Add(programEntity);
+                _context.Mst_applied_program.Add(programEntity);
                 _context.SaveChanges();
-
-                // Eager loading untuk mengambil programCategory
-                programEntity = _context.ProgramEntities
-                    .Include(p => p.ProgramCategory)
-                    .FirstOrDefault(p => p.UUID == programEntity.UUID);
-                return new ResBase<ProgramEntity>()
-                {
-                    Data = programEntity
-                };
+                programEntity = _context.Mst_applied_program
+                                .Include(p => p.ProgramCategory)
+                                .FirstOrDefault(p => p.UUID == programEntity.UUID);
+                return programEntity;
             }
-            catch (Exception ex)
+            catch
             {
-                return new ResBase<ProgramEntity>()
-                {
-                    Success = false,
-                    Code = 400,
-                    Message = ex.Message,
-                    Data = null
-                };
+                return null;
             }
         }
 
-
-        public ResBase<ProgramEntity> Delete(string uuid)
+        public ProgramEntity Delete(string uuid)
         {
-            var data = _context.ProgramEntities.FirstOrDefault( x => x.UUID == uuid );
-            if ( data != null )
+            var data = _context.Mst_applied_program.FirstOrDefault( x => x.UUID == uuid );
+            if ( data == null )
             {
-                _context.ProgramEntities.Remove( data );
-                _context.SaveChanges();
-                return new ResBase<ProgramEntity>()
-                { Data = data };
+                return null;
             }
-            else
-            {
-                return new ResBase<ProgramEntity>()
-                {
-                    Success = false,
-                    Code = 404,
-                    Message = "Not Found",
-                    Data = null
-                };
-            }
+            _context.Mst_applied_program.Remove(data);
+            _context.SaveChanges();
+            return data;
         }
 
-        public ResBase<List<ProgramEntity>> GetAll()
+        public List<ProgramEntity> GetAll()
         {
-            try
-            {
-                var data = _context.ProgramEntities
-                    .Include(p => p.ProgramCategory)
-                    .ToList();
-
-                return new ResBase<List<ProgramEntity>>() { Data = data };
-            }
-            catch (Exception ex)
-            {
-                return new ResBase<List<ProgramEntity>>()
-                {
-                    Success = false,
-                    Code = 400,
-                    Message = ex.Message,
-                    Data = null
-                };
-            }
+            var data = _context.Mst_applied_program
+                        .Where(x => x.Flag_Active == true)
+                        .Include(p => p.ProgramCategory)
+                        .ToList();
+            return data;
         }
 
-        public ResBase<ProgramEntity> GetByUUID(string uuid)
+        public ProgramEntity? GetByUUID(string uuid)
         {
-            try
-            {
-                var data = _context.ProgramEntities
-                    .Include(p => p.ProgramCategory)
-                    .FirstOrDefault(x => x.UUID == uuid);
+            var data = _context.Mst_applied_program
+                .Include(p => p.ProgramCategory)
+                .FirstOrDefault(x => x.UUID == uuid);
 
-                if (data != null)
-                {
-                    return new ResBase<ProgramEntity>
-                    {
-                        Data = data
-                    };
-                }
-                else
-                {
-                    return new ResBase<ProgramEntity>()
-                    {
-                        Success = false,
-                        Message = "Not Found",
-                        Code = 404,
-                        Data = null
-                    };
-                }
-            }
-            catch (Exception ex)
+            if (data == null)
             {
-                return new ResBase<ProgramEntity>()
-                {
-                    Success = false,
-                    Code = 400,
-                    Message = ex.Message,
-                    Data = null
-                };
+                return null;
             }
-        }
-            public ResBase<ProgramEntity> Update(string uuid, ProgramEntity programEntity)
+            return data;
+         }
+        public ProgramEntity? Update(string uuid, ProgramEntity programEntity)
         {
-            var data = _context.ProgramEntities.FirstOrDefault(x => x.UUID == uuid);
-            if ( data != null )
+            var data = _context .Mst_applied_program.FirstOrDefault(x => x.UUID == uuid);
+            if ( data == null )
             {
-                data.Name = programEntity.Name;
-                data.StatusProgram = programEntity.StatusProgram;
-                data.Desc = programEntity.Desc;
-                data.Flag = programEntity.Flag;
-                data.IdCategory = programEntity.IdCategory;
-                _context.SaveChanges();
-                return new ResBase<ProgramEntity> { Data = data };
+                return null;
             }
-            else
-            {
-                return new ResBase<ProgramEntity>
-                {
-                    Success = false,
-                    Code = 404,
-                    Message = "Not Found",
-                    Data = null
-                };
-            }
+            data.Name = programEntity.Name;
+            data.StatusProgram = programEntity.StatusProgram;
+            data.Desc = programEntity.Desc;
+            data.Flag = programEntity.Flag;
+            data.IdCategory = programEntity.IdCategory;
+            data.Flag_Active = programEntity.Flag_Active;
+            _context.SaveChanges();
+            return data;
         }
     }
 }

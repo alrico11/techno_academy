@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MySqlX.XDevAPI.Common;
+using TechnoAcademyApi.Models.Dto.Res;
 using TechnoAcademyApi.Models.Entity;
 using TechnoAcademyApi.Services;
 
@@ -14,36 +16,36 @@ namespace TechnoAcademyApi.Controllers
             _testimonyService = testimonyService;
         }
         [HttpPost]
-        public IActionResult Create(TestimonyEntity entity)
+        public async Task<ActionResult<Response>> Create(TestimonyEntity entity)
         {
-            var res = _testimonyService.Create(entity);
-            return res == null ?  BadRequest(res) : Ok(res);
+            var res = await Task.FromResult(_testimonyService.Create(entity));
+            return res == null ? BadRequest() : new Response("success", res);
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<ActionResult<Response>>GetAll()
         {
-            var res = _testimonyService.GetAll();
-            return Ok(res);
+            var res = await Task.FromResult(_testimonyService.GetAll());
+            return res == null ? NotFound() : new Response("success", res);
         }
         [HttpGet("{uuid}")]
-        public IActionResult GetByID(string uuid)
+        public async Task<ActionResult<Response>> GetByID(string uuid)
         {
-            var res = _testimonyService.Get(uuid);
-            return res == null ? NotFound(res) : Ok(res);
+            var res = await Task.FromResult(_testimonyService.Get(uuid));
+            return res == null ? NotFound() : new Response("success", res);
         }
         [HttpPut("{uuid}")]
-        public IActionResult  Update(string uuid, TestimonyEntity entity)
+        public async Task<ActionResult<Response>>  Update(string uuid, TestimonyEntity entity)
         {
-            var res = _testimonyService.Update(uuid, entity);
-            return res == null ? NotFound(res) : Ok(res);
+            var res = await Task.FromResult(_testimonyService.Update(uuid, entity));
+            return res == null ? NotFound(res) : new Response("success", res);
         }
 
         [HttpDelete("{uuid}")]
-        public IActionResult Delete(string uuid)
+        public async Task<ActionResult<Response>> Delete(string uuid)
         {
-            var res = _testimonyService.Delete(uuid);
-            return res == null ? NotFound(res) : Ok(res);
+            var res = await Task.FromResult(_testimonyService.Delete(uuid));
+            return res == null ? NotFound(res) : new Response("success", res);
         }
     }
 }

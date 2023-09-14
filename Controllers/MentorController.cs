@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TechnoAcademyApi.Models.Dto.Res;
 using TechnoAcademyApi.Models.Entity;
 using TechnoAcademyApi.Services;
 
@@ -14,55 +15,34 @@ namespace TechnoAcademyApi.Controllers
             _service = service;
         }
         [HttpPost]
-        public IActionResult Create(MentorEntity entity)
+        public async Task<ActionResult<Response>> Create(MentorEntity entity)
         {
-            var res = _service.Create(entity);
-            if (res == null)
-            {
-                throw new Exception();
-            }
-            else
-            {
-                return Ok(res);
-            }
+            var res = await Task.FromResult(_service.Create(entity));
+            return res == null ? BadRequest() : new Response("success", res);
         }
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<ActionResult<Response>> GetAll()
         {
-            var res = _service.GetAll();
-            if (res == null)
-            {
-                throw new Exception();
-            }
-            else
-            {
-                return Ok(res);
-            }
+            var res = await Task.FromResult(_service.GetAll());
+            return res == null ? NotFound() : new Response("success", res);
         }
         [HttpGet("{uuid}")]
-        public IActionResult GetByUUID(string uuid) { 
-            var res = _service.GetByUUID(uuid);
-            if (res == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return Ok(res);
-            }
+        public async Task<ActionResult<Response>> GetByUUID(string uuid) { 
+            var res = await Task.FromResult(_service.GetByUUID(uuid));
+            return res == null ? NotFound() : new Response("success", res);
         }
         [HttpPut("{uuid}")]
-        public IActionResult Put(string uuid, MentorEntity entity)
+        public async Task<ActionResult<Response>> Update(string uuid, MentorEntity entity)
         {
-            var res = _service.Update(uuid, entity);
-            return res == null ? NotFound() : Ok(res);
+            var res = await Task.FromResult(_service.Update(uuid, entity));
+            return res == null ? NotFound() : new Response("success", res);
         }
 
         [HttpDelete("{uuid}")]
-        public IActionResult Delete(string uuid)
+        public async Task<ActionResult<Response>> Delete(string uuid)
         {
-            var res = _service.Delete(uuid);
-            return res == null ? NotFound() : Ok(res);
+            var res = await Task.FromResult(_service.Delete(uuid));
+            return res == null ? NotFound() : new Response("success", res);
         }
     }
 }

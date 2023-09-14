@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TechnoAcademyApi.Models.Dto.Res;
 using TechnoAcademyApi.Models.Entity;
 using TechnoAcademyApi.Services;
 
@@ -14,71 +15,36 @@ namespace TechnoAcademyApi.Controllers
             _programEntityService = programEntityService;
         }
         [HttpPost]
-        public IActionResult Create(ProgramEntity programEntity) { 
+        public async Task<ActionResult<Response>> Create(ProgramEntity programEntity) { 
         
-            var result = _programEntityService.Create(programEntity);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            var res = await Task.FromResult(_programEntityService.Create(programEntity));
+            return res == null ? NotFound() : new Response("success");
         }
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<ActionResult<Response>> GetAll()
         {
-            var result = _programEntityService.GetAll();
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            var res = await Task.FromResult(_programEntityService.GetAll());
+            return res == null ? NotFound() : new Response("success");
         }
         [HttpGet("{uuid}")]
 
-        public IActionResult GetByUUID(string uuid)
+        public async Task<ActionResult<Response>> GetByUUID(string uuid)
         {
-            var result = _programEntityService.GetByUUID(uuid);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            var res = await Task.FromResult(_programEntityService.GetByUUID(uuid));
+            return res == null ? NotFound() : new Response("success");
         }
 
         [HttpPut("{uuid}")]
-        public IActionResult Update(string uuid,ProgramEntity programEntity) { 
-            var result = _programEntityService.Update(uuid, programEntity);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+        public async Task<ActionResult<Response>> Update(string uuid,ProgramEntity programEntity) { 
+            var res = await Task.FromResult(_programEntityService.Update(uuid, programEntity));
+            return res == null ? NotFound() : new Response("success");
         }
 
         [HttpDelete("{uuid}")]
-        public IActionResult Delete(string uuid)
+        public async Task<ActionResult<Response>> Delete(string uuid)
         {
-            var result = _programEntityService.Delete(uuid);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            var res = await Task.FromResult(_programEntityService.Delete(uuid));
+            return res == null ? NotFound() : new Response("success");
         }
     }
 }

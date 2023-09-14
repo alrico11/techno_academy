@@ -14,7 +14,6 @@ namespace TechnoAcademyApi.Models.Entity
 
         [Required(ErrorMessage = "Date end not null")]
         public DateTime? DateEnd { get; set; }
-        public bool Flag { get; set; } = false;
 
     }
 }

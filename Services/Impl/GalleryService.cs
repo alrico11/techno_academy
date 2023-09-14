@@ -12,68 +12,52 @@ namespace TechnoAcademyApi.Services.Impl
             _context = context;
         }
         
-        public ResBase<GalleryEntity> Create(GalleryEntity entity)
+        public GalleryEntity? Create(GalleryEntity entity)
         {
             try
             {
-                _context.GalleriesEntites.Add(entity);
+                _context.Mst_gallery.Add(entity);
                 _context.SaveChanges();
-                return new ResBase<GalleryEntity>
-                {
-                    Data = entity
-                };
-            }catch (Exception ex) {
-                return new ResBase<GalleryEntity>
-                {
-                    Message = ex.Message,
-                    Success = false,
-                    Code = 400,
-                    Data = null
-                };
+                return entity;
+            }catch{
+                return null;
             }
         }
 
-        public ResBase<GalleryEntity>? Delete(string uuid)
+        public GalleryEntity? Delete(string uuid)
         {
-           var data = _context.GalleriesEntites.Find(uuid);
+           var data = _context.Mst_gallery.Find(uuid);
            if (data == null) {
                 return null;
            }
-            _context.GalleriesEntites.Remove(data);
+            _context.Mst_gallery.Remove(data);
             _context.SaveChanges();
-            return new ResBase<GalleryEntity>
-            {
-                Message = "Mentor Deleted",
-                Data = null
-            };
+            return data;
         }
 
-        public ResBase<List<GalleryEntity>> GetAll()
+        public List<GalleryEntity> GetAll()
         {
-            var data = _context.GalleriesEntites.ToList();
-            return new ResBase<List<GalleryEntity>>
-            {
-                Data = data
-            };
+            var data = _context.Mst_gallery.Where(x => x.Flag_Active == true).ToList();
+            return data;
         }
 
-        public ResBase<GalleryEntity>? GetById(string id)
+        public GalleryEntity? GetById(string id)
         {
-            var data = _context.GalleriesEntites.Find(id);
-            return data == null ? null : new ResBase<GalleryEntity> { Data = data };
+            var data = _context.Mst_gallery.Find(id);
+            return data == null ? null : data;
         }
 
-        public ResBase<GalleryEntity>? Update(string uuid, GalleryEntity entity)
+        public GalleryEntity? Update(string uuid, GalleryEntity entity)
         {
-            var data = _context.GalleriesEntites.Find(uuid);
+            var data = _context.Mst_gallery.Find(uuid);
             if(data  == null)
             {
                 return null;
             }
             data.Link = entity.Link;
-            data.Flag = entity.Flag;
+            data.Flag_Active = entity.Flag_Active;
             _context.SaveChanges();
-            return new ResBase<GalleryEntity> { Message = "Mentor Updated" };
+            return entity;
         }
     }
 }
