@@ -18,7 +18,7 @@ namespace TechnoAcademyApi.Controllers
         public async Task<ActionResult<Response>> Create(EventEntity entity)
         {
             var res = await Task.FromResult(_eventService.Create(entity));
-            return res == null ? BadRequest() : new Response("success", res);
+            return res == null ? BadRequest() : new Response("success");
         }
 
         [HttpGet]
@@ -31,17 +31,22 @@ namespace TechnoAcademyApi.Controllers
             var res = await Task.FromResult(_eventService.GetById(uuid));
             return res == null ? NotFound() : new Response("success", res);
         }
-        [HttpPut]
+        [HttpPut("{uuid}")]
         public async Task<ActionResult<Response>> Update(string uuid, EventEntity entity)
         {
             var res = await Task.FromResult(_eventService.Update(uuid, entity));
             return res == null ? NotFound(res) : new Response("success");
         }
-        [HttpDelete]
-
+        [HttpDelete("{uuid}")]
         public async Task<ActionResult<Response>> Delete(string uuid)
         {
             var res = await Task.FromResult(_eventService.Delete(uuid));
+            return res == null ? NotFound(res) : new Response("success");
+        }
+        [HttpPut("delete/{uuid}")]
+        public async Task<ActionResult<Response>> DeleteByUUID(string uuid)
+        {
+            var res = await Task.FromResult(_eventService.DeleteByUUID(uuid));
             return res == null ? NotFound(res) : new Response("success");
         }
     }

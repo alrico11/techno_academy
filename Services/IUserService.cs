@@ -11,5 +11,6 @@ namespace TechnoAcademyApi.Services
         UserEntity? Delete(string uuid);
         UserEntity? GetById(string uuid);
         List<UserCmsRes> GetAll();
+        UserEntity? DeleteById(string uuid);
     }
 }

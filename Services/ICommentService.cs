@@ -10,5 +10,6 @@ namespace TechnoAcademyApi.Services
         List<Comment> GetAll();
         Comment? Update(string uuid, Comment comment);
         Comment? Delete(string uuid);
+        Comment? DeleteByUUID(string uuid);
     }
 }

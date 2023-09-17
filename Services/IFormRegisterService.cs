@@ -10,5 +10,6 @@ namespace TechnoAcademyApi.Services
         List<FormRegister> GetAllFormRegisters();
         FormRegister? UpdateFormRegister(string uuid, FormRegister formRegister);
         FormRegister? DeleteFormRegister(string uuid);
+        FormRegister? DeleteByUUID(string uuid);
     }
 }

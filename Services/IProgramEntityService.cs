@@ -10,5 +10,6 @@ namespace TechnoAcademyApi.Services
         ProgramEntity? Delete(string uuid);
         ProgramEntity? GetByUUID(string uuid);
         List<ProgramEntity> GetAll();
+        ProgramEntity? DeleteByUUID(string uuid);
     }
 }

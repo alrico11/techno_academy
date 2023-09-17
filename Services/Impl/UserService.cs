@@ -101,5 +101,13 @@ namespace TechnoAcademyApi.Services.Impl
             _context.SaveChanges();
             return data;
         }
+
+        public UserEntity? DeleteById(string uuid)
+        {
+            var data = _context.Mst_user_cms.Find(uuid);
+            if (data == null) { return null; }
+            data.Flag_Active = false;
+            return data;
+        }
     }
 }

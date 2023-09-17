@@ -12,7 +12,7 @@ namespace TechnoAcademyApi.Services.Impl
         {
             _context = context;
         }
-        public ProgramCategory Create(ProgramCategory programCategory)
+        public ProgramCategory? Create(ProgramCategory programCategory)
         {
             try
             {
@@ -66,6 +66,17 @@ namespace TechnoAcademyApi.Services.Impl
             data.DateStart = programCategory.DateStart;
             data.DateEnd = programCategory.DateEnd;
             data.Flag_Active = programCategory.Flag_Active;
+            _context.SaveChanges();
+            return data;
+        }
+        public ProgramCategory? DeleteByUUID(string uuid)
+        {
+            var data = _context.Mst_program.FirstOrDefault(x => x.UUID == uuid);
+            if (data == null)
+            {
+                return null;
+            }
+            data.Flag_Active = false;
             _context.SaveChanges();
             return data;
         }

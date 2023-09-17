@@ -61,9 +61,21 @@ namespace TechnoAcademyApi.Services.Impl
             data.Name = entity.Name;
             data.Photo = entity.Photo;
             data.Description = entity.Description;
+            data.Rating = entity.Rating;
             data.Flag_Active = entity.Flag_Active;
             _context.SaveChanges();
             return entity;
+        }
+        public TestimonyEntity? DeleteById(string uuid)
+        {
+            var data = _context.Mst_testimony.Find(uuid);
+            if (data == null)
+            {
+                return null;
+            }
+            data.Flag_Active = false;
+            _context.SaveChanges();
+            return data;
         }
     }
 }

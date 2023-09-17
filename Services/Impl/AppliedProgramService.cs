@@ -108,6 +108,14 @@ namespace TechnoAcademyApi.Services.Impl
             _context.SaveChanges();
             return data;
         }
+        public AppliedProgram? DeleteByUUID(string uuid)
+        {
+            var data = _context.Trn_applied_program.Find(uuid);
+            if (data == null) { return null; }
+            data.Flag_Active = false;
+            _context.SaveChanges();
+            return data;
+        }
 
         public AppliedProgram? UpdateStatus(string uuid, UpdateStatusReq updateStatusReq)
         {
@@ -119,6 +127,10 @@ namespace TechnoAcademyApi.Services.Impl
                 if (data == null) { return null; }
 
                 var dataStatusLog = _context.Log_status.Where(x => x.IdAppliedProgram == data.UUID).OrderByDescending(x => x.Sequence).Select(x => x.Sequence).FirstOrDefault();
+                var dataStatusLogUpdateBefore = _context.Log_status.Where(x => x.IdAppliedProgram == data.UUID).OrderByDescending(x => x.Sequence).Select(x => x.UUID).FirstOrDefault();
+
+                var dataStatusLogsUpdated = _context.Log_status.Find(dataStatusLogUpdateBefore);
+
                 var currentStatus = data.Last_Status;
                 var lastStatusArr = _context.Mst_GCM_Academy
                                     .Where(x => x.Condition == "Mst_Status")
@@ -133,30 +145,37 @@ namespace TechnoAcademyApi.Services.Impl
                 switch (currentStatus)
                 {
                     case "Dokumen diterima":
+                        dataStatusLogsUpdated.StepStatus = stepStatusArr[1];
                         FuncUpdateStatus(data, lastStatusArr[1], updateStatusReq.Notes, Convert.ToInt32(dataStatusLog), stepStatusArr[0]);
                         data.Last_Status = lastStatusArr[1];
                         break;
                     case "Screening":
+                        dataStatusLogsUpdated.StepStatus = stepStatusArr[1];
                         FuncUpdateStatus(data, lastStatusArr[2], updateStatusReq.Notes, Convert.ToInt32(dataStatusLog), stepStatusArr[0]);
                         data.Last_Status = lastStatusArr[2];
                         break;
                     case "Online Test":
+                        dataStatusLogsUpdated.StepStatus = stepStatusArr[1];
                         FuncUpdateStatus(data, lastStatusArr[3], updateStatusReq.Notes, Convert.ToInt32(dataStatusLog), stepStatusArr[0]);
                         data.Last_Status = lastStatusArr[3];
                         break;
                     case "Logical Test":
+                        dataStatusLogsUpdated.StepStatus = stepStatusArr[1];
                         FuncUpdateStatus(data, lastStatusArr[4], updateStatusReq.Notes, Convert.ToInt32(dataStatusLog), stepStatusArr[0]);
                         data.Last_Status = lastStatusArr[4];
                         break;
                     case "Wawancara User 1":
+                        dataStatusLogsUpdated.StepStatus = stepStatusArr[1];
                         FuncUpdateStatus(data, lastStatusArr[5], updateStatusReq.Notes, Convert.ToInt32(dataStatusLog), stepStatusArr[0]);
                         data.Last_Status = lastStatusArr[5];
                         break;
                     case "Wawancara User 2":
+                        dataStatusLogsUpdated.StepStatus = stepStatusArr[1];
                         FuncUpdateStatus(data, lastStatusArr[6], updateStatusReq.Notes, Convert.ToInt32(dataStatusLog), stepStatusArr[0]);
                         data.Last_Status = lastStatusArr[6];
                         break;
                     case "Wawancara HC":
+                        dataStatusLogsUpdated.StepStatus = stepStatusArr[1];
                         FuncUpdateStatus(data, lastStatusArr[6], updateStatusReq.Notes, Convert.ToInt32(dataStatusLog), stepStatusArr[2]);
                         break;
                     default:
@@ -184,6 +203,27 @@ namespace TechnoAcademyApi.Services.Impl
                 StepStatus = stepStatus
             };
             _context.Log_status.Add(newStatusLog);
+        }
+
+        public AppliedProgram? RejectStatus(string uuid)
+        {
+            var data = _context.Trn_applied_program.Find(uuid);
+            if (data ==  null ) { return null; }
+            var currentStatus = data.Last_Status;
+            var lastStatusArr = _context.Mst_GCM_Academy
+                                .Where(x => x.Condition == "Mst_Status")
+                                .OrderBy(x => x.CharValue1)
+                                .Select(x => x.CharDesc1)
+                                .ToList();
+            var stepStatusArr = _context.Mst_GCM_Academy
+                                .Where(x => x.Condition == "Mst_Step_status")
+                                .OrderBy(x => x.CharValue1)
+                                .Select(x => x.CharDesc1)
+                                .ToList();
+            var dataStatusLogUpdateBefore = _context.Log_status.Where(x => x.IdAppliedProgram == data.UUID).OrderByDescending(x => x.Sequence).FirstOrDefault();
+            dataStatusLogUpdateBefore.StepStatus = stepStatusArr[2];
+            _context.SaveChanges();
+            return data;
         }
     }
 }

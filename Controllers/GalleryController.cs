@@ -18,7 +18,7 @@ namespace TechnoAcademyApi.Controllers
         public async Task<ActionResult<Response>> Create(GalleryEntity entity)
         {
             var res = await Task.FromResult(_galleryService.Create(entity));
-            return res == null ? BadRequest() : new Response("success", res);
+            return res == null ? BadRequest() : new Response("success");
         }
 
         [HttpGet]
@@ -38,13 +38,19 @@ namespace TechnoAcademyApi.Controllers
         public async Task<ActionResult<Response>> Update(string id, GalleryEntity entity)
         {
             var res = await Task.FromResult(_galleryService.Update(id, entity));
-            return res == null ? NotFound(res) : new Response("success", res);
+            return res == null ? NotFound(res) : new Response("success");
         }
         [HttpDelete("{id}")]
         public async Task<ActionResult<Response>> Delete(string id)
         {
             var res = await Task.FromResult(_galleryService.Delete(id));
-            return res == null ? NotFound(res) : new Response("success", res);
+            return res == null ? NotFound(res) : new Response("success");
+        }
+        [HttpPut("delete/{id}")]
+        public async Task<ActionResult<Response>> DeleteByUUID(string id)
+        {
+            var res = await Task.FromResult(_galleryService.DeleteByUUID(id));
+            return res == null ? NotFound(res) : new Response("success");
         }
     }
 }

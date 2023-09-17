@@ -27,7 +27,7 @@ namespace TechnoAcademyApi.Controllers
         [HttpPost("logout")]
         public async Task<ActionResult<Response>> Logout([FromBody] string token)
         {
-            var res = _authService.AuthLogout(token);
+            var res = await Task.FromResult(_authService.AuthLogout(token));
             return res == null ? BadRequest() : new Response("success", res);
         }
     }

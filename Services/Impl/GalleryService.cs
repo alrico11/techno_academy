@@ -59,5 +59,16 @@ namespace TechnoAcademyApi.Services.Impl
             _context.SaveChanges();
             return entity;
         }
+        public GalleryEntity? DeleteByUUID(string uuid)
+        {
+            var data = _context.Mst_gallery.Find(uuid);
+            if(data  == null)
+            {
+                return null;
+            }
+            data.Flag_Active = false;
+            _context.SaveChanges();
+            return data;
+        }
     }
 }

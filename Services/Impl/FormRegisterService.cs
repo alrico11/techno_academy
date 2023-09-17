@@ -33,19 +33,21 @@ namespace TechnoAcademyApi.Services.Impl
             bool emailExists = _context.Mst_user.Any(fr => fr.Email == formRegister.Email);
             if (emailExists)
             {
-                return null;
+                throw new Exception("Email already exists.");
             }
+
             try
             {
                 _context.Mst_user.Add(formRegister);
                 _context.SaveChanges();
                 return formRegister;
             }
-            catch
+            catch (Exception ex)
             {
                 return null;
             }
         }
+
         public FormRegister? UpdateFormRegister(string uuid, FormRegister formRegister)
         {
             var data = _context.Mst_user.FirstOrDefault(f => f.UUID == uuid);
@@ -63,6 +65,17 @@ namespace TechnoAcademyApi.Services.Impl
             data.Flag_Active = formRegister.Flag_Active;
             _context.SaveChanges();
             return formRegister;
+        }
+        public FormRegister? DeleteByUUID(string uuid)
+        {
+            var data = _context.Mst_user.FirstOrDefault(f => f.UUID == uuid);
+            if (data == null)
+            {
+                return null;
+            }
+            data.Flag_Active = false;
+            _context.SaveChanges();
+            return data;
         }
         public FormRegister? DeleteFormRegister(string uuid)
         {

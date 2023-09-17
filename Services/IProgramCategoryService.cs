@@ -5,10 +5,11 @@ namespace TechnoAcademyApi.Services
 {
     public interface IProgramCategoryService
     {
-        ProgramCategory Create(ProgramCategory programCategory);
-        ProgramCategory GetByUUID(string uuid);
+        ProgramCategory? Create(ProgramCategory programCategory);
+        ProgramCategory? GetByUUID(string uuid);
         List<ProgramCategory> GetAll();
-        ProgramCategory Update(string uuid, ProgramCategory programCategory);
-        ProgramCategory Delete(string uuid);
+        ProgramCategory? Update(string uuid, ProgramCategory programCategory);
+        ProgramCategory? DeleteByUUID(string uuid);
+        ProgramCategory? Delete(string uuid);
     }
 }

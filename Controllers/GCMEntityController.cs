@@ -43,6 +43,11 @@ namespace TechnoAcademyApi.Controllers
             var res = await Task.FromResult(_entityService.Delete(uuid));
             return res == null ? NotFound() : new Response("success");
         }
+        [HttpPut("delete/{uuid}")]
+        public async Task<ActionResult<Response>> DeleteByUUID(string uuid) { 
+            var res = await Task.FromResult(_entityService.DeleteByUUID(uuid));
+            return res == null ? NotFound() : new Response("success");
+        }
         [HttpGet("condition")]
         public async Task<ActionResult<Response>> GetAllCondition()
         {

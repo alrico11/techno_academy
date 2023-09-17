@@ -42,6 +42,7 @@ namespace TechnoAcademyApi
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IJwtTokenService,  JwtTokenService>();
+            services.AddScoped<IStatusLogService, StatusLogService>();
 
             services.AddControllers();
 

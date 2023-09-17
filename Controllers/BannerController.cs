@@ -18,7 +18,7 @@ namespace TechnoAcademyApi.Controllers
         public async Task<ActionResult<Response>> Create(BannerEntity entity)
         {
             var res = await Task.FromResult(_bannerService.Create(entity));
-            return res == null ? BadRequest() : new Response("success",res);
+            return res == null ? BadRequest() : new Response("success");
         }
         [HttpGet]
         public async Task<ActionResult<Response>> GetAll() {
@@ -36,13 +36,19 @@ namespace TechnoAcademyApi.Controllers
         public async Task<ActionResult<Response>> Update(string uuid, BannerEntity entity)
         {
             var res = await Task.FromResult(_bannerService.Update(uuid, entity));
-            return res == null ? NotFound() : new Response("success", res);
+            return res == null ? NotFound() : new Response("success");
+        }
+        [HttpPut("delete/{uuid}")]
+        public async Task<ActionResult<Response>> DeleteByUUID(string uuid)
+        {
+            var res = await Task.FromResult(_bannerService.DeleteByUUID(uuid));
+            return res == null ? NotFound() : new Response("success");
         }
         [HttpDelete("{uuid}")]
         public async Task<ActionResult<Response>> Delete(string uuid)
         {
             var res = await Task.FromResult(_bannerService.Delete(uuid));
-            return res == null ? NotFound() : new Response("success", res);
+            return res == null ? NotFound() : new Response("success");
         }
     }
 }

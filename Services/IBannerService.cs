@@ -8,6 +8,7 @@ namespace TechnoAcademyApi.Services
         BannerEntity? Create(BannerEntity entity);
         BannerEntity? Update(string uuid, BannerEntity entity);
         BannerEntity? Delete(string uuid);
+        BannerEntity? DeleteByUUID(string uuid);
         BannerEntity? GetById(string uuid);
         List<BannerEntity>? GetAll();
     }

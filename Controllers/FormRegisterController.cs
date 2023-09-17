@@ -19,8 +19,15 @@ namespace TechnoAcademyApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Response>> CreateFormRegister(FormRegister formRegister)
         {
-            var result = await Task.FromResult(_formRegisterService.CreateFormRegister(formRegister));
-            return result == null ? BadRequest() : new Response("success", result);
+            try
+            {
+                var result = await Task.FromResult(_formRegisterService.CreateFormRegister(formRegister));
+                return result == null ? BadRequest("Something went wrong") : new Response("success");
+            }
+            catch
+            {
+                return BadRequest("Email already exists.");
+            }
         }
 
         [HttpGet("{uuid}")]
@@ -47,14 +54,20 @@ namespace TechnoAcademyApi.Controllers
         public async Task<ActionResult<Response>> UpdateFormRegister(string uuid, FormRegister formRegister)
         {
             var res = await Task.FromResult(_formRegisterService.UpdateFormRegister(uuid, formRegister));
-            return res == null ? NotFound() : new Response("success", res);
+            return res == null ? NotFound() : new Response("success");
         }
 
         [HttpDelete("{uuid}")]
         public async Task<ActionResult<Response>> DeleteFormRegister(string uuid)
         {
             var res = await Task.FromResult(_formRegisterService.DeleteFormRegister(uuid));
-            return res == null ? NotFound() : new Response("success", res);
+            return res == null ? NotFound() : new Response("success");
+        }
+        [HttpPut("delete/{uuid}")]
+        public async Task<ActionResult<Response>> DeleteByUUID(string uuid)
+        {
+            var res = await Task.FromResult(_formRegisterService.DeleteByUUID(uuid));
+            return res == null ? NotFound() : new Response("success");
         }
     }
 }

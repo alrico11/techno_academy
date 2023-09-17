@@ -10,6 +10,8 @@ namespace TechnoAcademyApi.Services
         List<AppliedProgram> GetAll();
         AppliedProgram? Update(string uuid, AppliedProgram appliedProgram);
         AppliedProgram? Delete(string uuid);
+        AppliedProgram? DeleteByUUID(string uuid);
         AppliedProgram? UpdateStatus(string uuid, UpdateStatusReq updateStatusReq);
+        AppliedProgram? RejectStatus(string uuid);
     }
 }

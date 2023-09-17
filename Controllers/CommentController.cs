@@ -35,14 +35,20 @@ namespace TechnoAcademyApi.Controllers
         public async Task<ActionResult<Response>> Update(string uuid, Comment comment)
         {
             var res = await Task.FromResult(_commentService.Update(uuid, comment));
-            return res == null ? NotFound() : new Response("success", res);
+            return res == null ? NotFound() : new Response("success");
 
         }
         [HttpDelete("{uuid}")]
         public async Task<ActionResult<Response>> Delete(string uuid)
         {
             var res = await Task.FromResult(_commentService.Delete(uuid));
-            return res == null ? NotFound() : new Response("success", res);
+            return res == null ? NotFound() : new Response("success");
+        }
+        [HttpPut("delete/{uuid}")]
+        public async Task<ActionResult<Response>> DeleteByUUID(string uuid)
+        {
+            var res = await Task.FromResult(_commentService.DeleteByUUID(uuid));
+            return res == null ? NotFound() : new Response("success");
         }
     }
 }

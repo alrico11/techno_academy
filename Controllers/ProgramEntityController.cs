@@ -24,19 +24,24 @@ namespace TechnoAcademyApi.Controllers
         public async Task<ActionResult<Response>> GetAll()
         {
             var res = await Task.FromResult(_programEntityService.GetAll());
-            return res == null ? NotFound() : new Response("success");
+            return res == null ? NotFound() : new Response("success",res);
         }
         [HttpGet("{uuid}")]
 
         public async Task<ActionResult<Response>> GetByUUID(string uuid)
         {
             var res = await Task.FromResult(_programEntityService.GetByUUID(uuid));
-            return res == null ? NotFound() : new Response("success");
+            return res == null ? NotFound() : new Response("success",res);
         }
 
         [HttpPut("{uuid}")]
         public async Task<ActionResult<Response>> Update(string uuid,ProgramEntity programEntity) { 
             var res = await Task.FromResult(_programEntityService.Update(uuid, programEntity));
+            return res == null ? NotFound() : new Response("success");
+        }        
+        [HttpPut("delete/{uuid}")]
+        public async Task<ActionResult<Response>> DeleteByUUID(string uuid) { 
+            var res = await Task.FromResult(_programEntityService.DeleteByUUID(uuid));
             return res == null ? NotFound() : new Response("success");
         }
 
@@ -46,5 +51,7 @@ namespace TechnoAcademyApi.Controllers
             var res = await Task.FromResult(_programEntityService.Delete(uuid));
             return res == null ? NotFound() : new Response("success");
         }
+
+
     }
 }

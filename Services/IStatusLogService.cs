@@ -1,15 +1,13 @@
-﻿//using TechnoAcademyApi.Models.Dto.Res;
-//using TechnoAcademyApi.Models.Entity;
+﻿using TechnoAcademyApi.Models.Dto.Res;
+using TechnoAcademyApi.Models.Entity;
 
-//namespace TechnoAcademyApi.Services
-//{
-//    public interface IStatusLogService
-//    {
-//        ResBase<StatusLog> Create(StatusLog statusLog);
-//        ResBase<StatusLog> Update(string uuid, StatusLog statusLog);
-//        ResBase<StatusLog> UpdatedReject(string uuid, StatusLog statusLog);
-//        ResBase<StatusLog> Delete(string uuid);
-//        ResBase<List<StatusLog>> GetAll();
-//        ResBase<StatusLog> GetByUUID(string uuid);
-//    }
-//}
+namespace TechnoAcademyApi.Services
+{
+    public interface IStatusLogService
+    {
+        List<StatusLog> GetAll();
+        StatusLog? GetByUUID(string uuid);
+        List<StatusLog> GetStatusUserByEmail(string email);
+        StatusLog? DeleteById(string uuid);
+    }
+}

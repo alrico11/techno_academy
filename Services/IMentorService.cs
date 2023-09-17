@@ -7,6 +7,7 @@ namespace TechnoAcademyApi.Services
     {
         MentorEntity? Create(MentorEntity entity);
         MentorEntity? Update(string uuid,MentorEntity entity);
+        MentorEntity? DeleteByUUID(string uuid);
         MentorEntity? Delete(string uuid);
         MentorEntity? GetByUUID(string uuid);
         List<MentorEntity>? GetAll();

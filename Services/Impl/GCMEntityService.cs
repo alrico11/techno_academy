@@ -46,28 +46,25 @@ namespace TechnoAcademyApi.Services.Impl
         public GCMEntity? Update(string uuid, GCMEntity entity)
         {
             var data = _context.Mst_GCM_Academy.FirstOrDefault(x => x.UUID == uuid);
-            if(data != null)
-            {
-                data.Condition = entity.Condition;
-                data.CharValue1 = entity.CharValue1;
-                data.CharValue2 = entity.CharValue2;
-                data.CharValue3 = entity.CharValue3;
-                data.CharValue4 = entity.CharValue4;
-                data.CharValue5 = entity.CharValue5;
-                data.CharDesc1 = entity.CharDesc1;
-                data.CharDesc2 = entity.CharDesc2;
-                data.CharDesc3 = entity.CharDesc3;
-                data.CharDesc4 = entity.CharDesc4;
-                data.CharDesc5 = entity.CharDesc5;
-                data.Status = entity.Status;
-                data.Flag_Active = entity.Flag_Active;
-                _context.SaveChanges();
-                return entity;
-            }
-            else
+            if(data == null)
             {
                 return null;
             }
+            data.Condition = entity.Condition;
+            data.CharValue1 = entity.CharValue1;
+            data.CharValue2 = entity.CharValue2;
+            data.CharValue3 = entity.CharValue3;
+            data.CharValue4 = entity.CharValue4;
+            data.CharValue5 = entity.CharValue5;
+            data.CharDesc1 = entity.CharDesc1;
+            data.CharDesc2 = entity.CharDesc2;
+            data.CharDesc3 = entity.CharDesc3;
+            data.CharDesc4 = entity.CharDesc4;
+            data.CharDesc5 = entity.CharDesc5;
+            data.Status = entity.Status;
+            data.Flag_Active = entity.Flag_Active;
+            _context.SaveChanges();
+            return entity;
         }
         public List<GCMEntity>? GetByCondition(string condition)
         {
@@ -83,6 +80,17 @@ namespace TechnoAcademyApi.Services.Impl
                 Condition = conditions,
             };
             return data == null ? null : newDataCondition;
+        }
+        public GCMEntity? DeleteByUUID(string uuid)
+        {
+            var data = _context.Mst_GCM_Academy.FirstOrDefault(x => x.UUID == uuid);
+            if (data == null)
+            {
+                return null;
+            }
+            data.Flag_Active = false;
+            _context.SaveChanges();
+            return data;
         }
     }
 }

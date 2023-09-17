@@ -61,6 +61,17 @@ namespace TechnoAcademyApi.Services.Impl
             data.Flag_Active = entity.Flag_Active;
             _context.SaveChanges();
             return data;
+        }      
+        public MentorEntity? DeleteByUUID(string uuid)
+        {
+            var data = _context.Mst_mentor.Find(uuid);
+            if (data == null)
+            {
+                return null;   
+            }
+            data.Flag_Active = false;
+            _context.SaveChanges();
+            return data;
         }
     }
 }

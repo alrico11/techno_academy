@@ -80,5 +80,16 @@ namespace TechnoAcademyApi.Services.Impl
             _context.SaveChanges();
             return data;
         }
+        public ProgramEntity? DeleteByUUID(string uuid)
+        {
+            var data = _context.Mst_applied_program.FirstOrDefault(x => x.UUID == uuid);
+            if (data == null)
+            {
+                return null;
+            }
+            data.Flag_Active = false;
+            _context.SaveChanges();
+            return data;
+        }
     }
 }

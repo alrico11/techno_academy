@@ -49,6 +49,18 @@ namespace TechnoAcademyApi.Services.Impl
             _context.SaveChanges();
             return comment;
         }
+        public Comment? DeleteByUUID(string uuid)
+        {
+            var data = _context.Mst_comment_section.FirstOrDefault(x => x.UUID == uuid);
+            if (data == null)
+            {
+                return null;
+            }
+            data.Flag_Active = false;
+
+            _context.SaveChanges();
+            return data;
+        }
 
         public Comment? Delete(string uuid)
         {

@@ -10,5 +10,6 @@ namespace TechnoAcademyApi.Services
         TestimonyEntity? Create(TestimonyEntity entity);
         TestimonyEntity? Update(string uuid,TestimonyEntity entity);
         TestimonyEntity? Delete(string uuid);
+        TestimonyEntity? DeleteById(string uuid);
     }
 }

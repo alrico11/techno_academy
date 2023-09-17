@@ -1,98 +1,45 @@
-﻿//using Microsoft.AspNetCore.Mvc;
-//using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
-//using TechnoAcademyApi.Models.Entity;
-//using TechnoAcademyApi.Services;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using TechnoAcademyApi.Models.Dto.Res;
+using TechnoAcademyApi.Models.Entity;
+using TechnoAcademyApi.Services;
 
-//namespace TechnoAcademyApi.Controllers
-//{
-//    [Route("api/v1/statuslog")]
-//    [ApiController]
-//    public class StatusLogController : Controller
-//    {
-//        private readonly IStatusLogService _statusLogService;
-//        public StatusLogController(IStatusLogService statusLogService)
-//        {
-//            _statusLogService = statusLogService;
-//        }
-//        [HttpGet]
-//        public IActionResult GetAll() {
+namespace TechnoAcademyApi.Controllers
+{
+    [Route("api/v1/statuslog")]
+    [ApiController]
+    public class StatusLogController : Controller
+    {
+        private readonly IStatusLogService _statusLogService;
+        public StatusLogController(IStatusLogService statusLogService)
+        {
+            _statusLogService = statusLogService;
+        }
+        [HttpGet]
+        public async Task<ActionResult<Response>> GetAll()
+        {
+            var res = await Task.FromResult(_statusLogService.GetAll());
+            return res == null ? BadRequest() : new Response("success", res);
+        }
+        [HttpGet("{uuid}")]
+        public async Task<ActionResult<Response>> GetByUUID(string uuid)
+        {
+            var res = await Task.FromResult(_statusLogService.GetByUUID(uuid));
+            return res == null ? NotFound() : new Response("success", res);
 
-//            var res = _statusLogService.GetAll();
-//            if (res.Success)
-//            {
-//                return Ok(res);
-//            }
-//            else
-//            {
-//                return BadRequest(res);
-//            }
-//        }
+        }
+        [HttpPut("{uuid}")]
+        public async Task<ActionResult<Response>> DeleteById(string uuid)
+        {
+            var res = await Task.FromResult(_statusLogService.DeleteById(uuid));
+            return res == null ? NotFound() : new Response("success");
+        }
 
-//        [HttpGet("{uuid}")]
-//        public IActionResult GetByUUID(string uuid) {
-
-//            var res = _statusLogService.GetByUUID(uuid);
-//            if (res.Success)
-//            {
-//                return Ok(res);
-//            }
-//            else
-//            {
-//                return BadRequest(res);
-//            }
-//        }
-
-//        [HttpPost]
-
-//        public IActionResult Create(StatusLog statusLog)
-//        {
-//            var res = _statusLogService.Create(statusLog);
-//            if (res.Success) {
-//                return Ok(res);
-//            }
-//            else
-//            {
-//                return BadRequest(res);
-//            }
-//        }
-//        [HttpPut("{uuid}")]
-//        public IActionResult Update(string uuid, StatusLog statusLog)
-//        {
-//            var res = _statusLogService.Update(uuid, statusLog);
-//            if (res.Success)
-//            {
-//                return Ok(res);
-//            }
-//            else
-//            {
-//                return BadRequest(res);
-//            }
-//        }
-//        [HttpPut("reject/{uuid}")]
-//        public IActionResult Reject(string uuid, StatusLog statusLog)
-//        {
-//            var res = _statusLogService.UpdatedReject(uuid, statusLog);
-//            if (res.Success)
-//            {
-//                return Ok(res);
-//            }
-//            else
-//            {
-//                return BadRequest(res);
-//            }
-//        }
-//        [HttpDelete("{uuid}")]
-//        public IActionResult Delete(string uuid)
-//        {
-//            var res = _statusLogService.Delete(uuid);
-//            if (res.Success)
-//            {
-//                return Ok(res);
-//            }
-//            else
-//            {
-//                return BadRequest(res);
-//            }
-//        }
-//    }
-//}
+        [HttpGet("search-email/{email}")]
+        public async Task<ActionResult<Response>> GetStatusUserByEmail(string email)
+        {
+            var res = await Task.FromResult(_statusLogService.GetStatusUserByEmail(email));
+            return res == null ? NotFound() : new Response("success", res);
+        }
+    }
+}

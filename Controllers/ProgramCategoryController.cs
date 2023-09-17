@@ -40,6 +40,12 @@ namespace TechnoAcademyApi.Controllers
             var res = await Task.FromResult(_programCategoryService.Update(uuid,programCategory));
             return res == null ? NotFound() : new Response("success");
         }
+        [HttpPut("delete/{uuid}")]
+        public async Task<ActionResult<Response>> DeleteByUUID(string uuid)
+        {
+            var res = await Task.FromResult(_programCategoryService.DeleteByUUID(uuid));
+            return res == null ? NotFound() : new Response("success");
+        }
         [HttpDelete("{uuid}")]
         public async Task<ActionResult<Response>> Delete(string uuid)
         {
