@@ -2,6 +2,7 @@
 using TechnoAcademyApi.Models.Dto.Req;
 using TechnoAcademyApi.Models.Dto.Res;
 using TechnoAcademyApi.Models.Entity;
+using TechnoAcademyApi.Utils;
 
 namespace TechnoAcademyApi.Services.Impl
 {
@@ -40,6 +41,8 @@ namespace TechnoAcademyApi.Services.Impl
             {
                 _context.Mst_user.Add(formRegister);
                 _context.SaveChanges();
+                EmailSender emailSender = new EmailSender("arkana.na123123@gmail.com", "kqpv kooq vlqu hudw", "smtp.gmail.com", 587);
+                emailSender.SendRegistrationEmail(formRegister.Email);  
                 return formRegister;
             }
             catch (Exception ex)
