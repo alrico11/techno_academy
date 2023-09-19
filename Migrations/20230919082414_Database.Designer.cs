@@ -11,7 +11,7 @@ using TechnoAcademyApi.Data;
 namespace TechnoAcademyApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230914031820_Database")]
+    [Migration("20230919082414_Database")]
     partial class Database
     {
         /// <inheritdoc />
@@ -180,6 +180,7 @@ namespace TechnoAcademyApi.Migrations
                         .HasColumnType("varchar(255)");
 
                     b.Property<string>("CV")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("CreatedAt")
@@ -189,9 +190,11 @@ namespace TechnoAcademyApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Domicile")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("varchar(255)");
 
                     b.Property<bool>("Flag_Active")
@@ -201,9 +204,10 @@ namespace TechnoAcademyApi.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Photo")
+                    b.Property<string>("Pict")
                         .HasColumnType("longtext");
 
                     b.Property<int>("Semester")
@@ -213,12 +217,15 @@ namespace TechnoAcademyApi.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("StudyProgram")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Telephone")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("University")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -355,6 +362,7 @@ namespace TechnoAcademyApi.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Photo")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -431,6 +439,10 @@ namespace TechnoAcademyApi.Migrations
                         .HasColumnType("varchar(255)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Pict")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -547,6 +559,10 @@ namespace TechnoAcademyApi.Migrations
                     b.Property<string>("Photo")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<int?>("Rating")
+                        .IsRequired()
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");

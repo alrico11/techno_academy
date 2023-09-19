@@ -160,7 +160,7 @@ namespace TechnoAcademyApi.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Photo = table.Column<string>(type: "longtext", nullable: true)
+                    Photo = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     UpdatedBy = table.Column<int>(type: "int", nullable: false),
@@ -228,6 +228,7 @@ namespace TechnoAcademyApi.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Rating = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     UpdatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -269,24 +270,24 @@ namespace TechnoAcademyApi.Migrations
                 {
                     UUID = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Name = table.Column<string>(type: "longtext", nullable: true)
+                    Name = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Telephone = table.Column<string>(type: "longtext", nullable: true)
+                    Telephone = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Email = table.Column<string>(type: "varchar(255)", nullable: true)
+                    Email = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    University = table.Column<string>(type: "longtext", nullable: true)
+                    University = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    StudyProgram = table.Column<string>(type: "longtext", nullable: true)
+                    StudyProgram = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     StudentStatus = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Semester = table.Column<int>(type: "int", nullable: false),
                     IPK = table.Column<float>(type: "float", nullable: false),
-                    CV = table.Column<string>(type: "longtext", nullable: true)
+                    CV = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Domicile = table.Column<string>(type: "longtext", nullable: true)
+                    Domicile = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Photo = table.Column<string>(type: "longtext", nullable: true)
+                    Pict = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     UpdatedBy = table.Column<int>(type: "int", nullable: false),
@@ -313,6 +314,8 @@ namespace TechnoAcademyApi.Migrations
                     StatusProgram = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Flag = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     IdCategory = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Pict = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     UpdatedBy = table.Column<int>(type: "int", nullable: false),
