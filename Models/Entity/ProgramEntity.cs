@@ -15,8 +15,11 @@ namespace TechnoAcademyApi.Models.Entity
         public bool StatusProgram { get; set; } = true;
         public bool Flag { get; set; } = false;
         [Required(ErrorMessage = "ID Program not null")]
+
         [ForeignKey("ProgramCategory")]
         public string? IdCategory { get; set; }
+        [Required(ErrorMessage = "Pict not null")]
+        public string? Pict { get; set; }
         public ProgramCategory? ProgramCategory { get; set; }
     }
 }

@@ -77,6 +77,7 @@ namespace TechnoAcademyApi.Services.Impl
             data.Flag = programEntity.Flag;
             data.IdCategory = programEntity.IdCategory;
             data.Flag_Active = programEntity.Flag_Active;
+            data.Pict = programEntity.Pict;
             _context.SaveChanges();
             return data;
         }

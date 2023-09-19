@@ -28,6 +28,6 @@ namespace TechnoAcademyApi.Models.Entity
         public string? CV { get; set; }
         [Required(ErrorMessage = "Domicile not null")]
         public string? Domicile { get; set; }
-        public string? Photo { get; set; }
+        public string? Pict { get; set; }
     }
 }
