@@ -9,10 +9,12 @@ namespace TechnoAcademyApi.Services.Impl
     public class FormRegisterService : IFormRegisterService
     {
         private readonly ApplicationDbContext _context;
+        private readonly IConfiguration _configuration;
 
-        public FormRegisterService(ApplicationDbContext context)
+        public FormRegisterService(ApplicationDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
         public List<FormRegister> GetAllFormRegisters()
         {
@@ -41,7 +43,13 @@ namespace TechnoAcademyApi.Services.Impl
             {
                 _context.Mst_user.Add(formRegister);
                 _context.SaveChanges();
-                EmailSender emailSender = new EmailSender("arkana.na123123@gmail.com", "kqpv kooq vlqu hudw", "smtp.gmail.com", 587);
+                string? emailSenderAddress = _configuration["AppSettings:EmailSender:Address"];
+                string? emailSenderPassword = _configuration["AppSettings:EmailSender:Password"];
+                string? emailSenderHost = _configuration["AppSettings:EmailSender:Host"];
+                string? emailSenderDisplayName = _configuration["AppSettings:EmailSender:DisplayName"];
+                int emailSenderPort = int.Parse(_configuration["AppSettings:EmailSender:Port"]);
+
+                EmailSender emailSender = new EmailSender(emailSenderAddress, emailSenderPassword, emailSenderHost, emailSenderPort, emailSenderDisplayName);
                 emailSender.SendRegistrationEmail(formRegister.Email);  
                 return formRegister;
             }
